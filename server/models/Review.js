@@ -1,13 +1,13 @@
-const { model, Schema } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const reviewSchema = new Schema({
   user: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,
   },
   postId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     required: true,
   },
   text: {
@@ -20,6 +20,6 @@ const reviewSchema = new Schema({
   },
 });
 
-const Review = new model('Review', reviewSchema);
+const Review = new model('Review', reviewSchema)
 
 module.exports = Review;
