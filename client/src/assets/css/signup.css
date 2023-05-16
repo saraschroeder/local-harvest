@@ -1,28 +1,31 @@
 .signup-page {
-  
-  color: white;
+  color: #301008; 
 }
 
 .signup-card {
-  background-color: #e1eedd;
-  color: #183a1d;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #301008; 
+  border-radius: 15px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 .btn-custom {
-  background-color: #f0a04b;
+  background-color: #dc7027; 
   color: white;
   border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
 .btn-custom:hover {
-  background-color: #D76F30;
+  background-color: #b6c48e; 
   color: white;
 }
 
 .login-link {
-  color: #f0a04b;
+  color: #dc7027; 
 }
 
 .login-link:hover {
-  color: #D76F30;
+  color: #b6c48e; 
 }
