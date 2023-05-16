@@ -1,0 +1,28 @@
+.login-page {
+ 
+  color: white;
+}
+
+.login-card {
+  background-color: #e1eedd;
+  color: #183a1d;
+}
+
+.btn-custom {
+  background-color: #f0a04b;
+  color: white;
+  border: none;
+}
+
+.btn-custom:hover {
+  background-color: #D76F30;
+  color: white;
+}
+
+.signup-link {
+  color: #f0a04b;
+}
+
+.signup-link:hover {
+  color: #D76F30;
+}
