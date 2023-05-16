@@ -1,0 +1,35 @@
+nav.navbar {
+  border-bottom: 0.5px solid #183a1d; 
+}
+
+.navbar-title {
+  font-size: 30px;
+  margin-top: 10px;
+  color: #f0a04b;
+  font-family: 'Fjalla One', sans-serif;
+}
+
+
+.navbar .navbar-brand,
+.navbar .nav-link {
+  color: #183a1d; 
+  margin-top: 10px;
+}
+
+.navbar .nav-link:hover {
+  color: #D76F30; 
+}
+
+.navbar .navbar-nav {
+  margin-right: 20px; 
+  font-size: 20px;
+  font-family: 'Fjalla One', sans-serif;
+}
+
+.navbar .logo {
+  width: 70px;
+  height: auto; 
+  margin-left: 10px;
+}
+
+
