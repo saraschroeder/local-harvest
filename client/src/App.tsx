@@ -11,14 +11,12 @@ function App() {
   return (
     <Router>
       <Header />
-      <Footer />
-    </div>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
-
 export default App;
