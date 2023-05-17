@@ -4,10 +4,11 @@ const { AuthenticationError } = require('apollo-server-express');
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find()
+      return User.find();
     },
     userById: async (_, { userId }) => {
       return User.findOne({ _id: userId });
+    },
   },
   Mutation: {
     createUser: async (_, { email, userName, password, role, businessName, location }) => {
@@ -17,7 +18,7 @@ const resolvers = {
         password,
         role,
         businessName,
-        location
+        location,
       });
       return user.create();
     },
@@ -31,8 +32,9 @@ const resolvers = {
     deleteUser: async (_, { userId }) => {
       return User.findOneAndDelete({ _id: userId });
     },
-    createReview: async (parent, { user, postId, text, rate }) => {
-      const newReview = await Review.create({
+    createReview: async (parent, { user, postId, text, rate }, context) => {
+      if (context.user) {
+        const newReview = await Review.create({
           user,
           postId,
           text,
@@ -40,7 +42,28 @@ const resolvers = {
         });
         return newReview;
       }
-    }
+      throw new AuthenticationError("Something went wrong!");
+    },
+    updateReview: async (parent, { postId, text, rate }, context) => {
+      if (context.user) {
+        const updatedReview = await Review.findOneAndUpdate(
+          { postId, user: context.user._id },
+          { text, rate },
+          { new: true }
+        );
+        return updatedReview;
+      }
+      throw new AuthenticationError("Something went wrong!");
+    },
+    deleteReview: async (parent, { postId }, context) => {
+      if (context.user) {
+        const reviewToDelete = await Review.findOneAndDelete({
+          postId,
+          user: context.user._id,
+        });
+        return reviewToDelete;
+      }
+    },
   },
 };
 
