@@ -1,0 +1,58 @@
+.explore-page {
+  color: #333;
+  padding: 20px;
+}
+
+.post-card {
+  margin-bottom: 20px;
+}
+
+.post-card .card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.post-card .card-body {
+  padding: 15px;
+}
+
+.post-card .card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.post-card .card-text {
+  margin-bottom: 5px;
+}
+
+.post-card .btn-primary {
+  background-color: #f0a04b;
+  border-color: #f0a04b;
+}
+
+.post-card .btn-primary:hover {
+  background-color: #d76f30;
+  border-color: #d76f30;
+}
+
+.post-card .btn-secondary {
+  background-color: #666;
+  border-color: #666;
+  color: #fff;
+  margin-left: 5px;
+}
+
+.post-card .btn-secondary:hover {
+  background-color: #333;
+  border-color: #333;
+}
+
+.post-card .d-flex {
+  margin-top: 10px;
+  align-items: center;
+}
+
+.post-card .mr-2 {
+  font-size: 14px;
+}

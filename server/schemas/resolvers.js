@@ -1,13 +1,16 @@
-//resolvers
-const User = require("./user");
+const { User, Review, Post } = require('../models');
+const { AuthenticationError } = require('apollo-server-express');
 
-const userResolvers = {
+const resolvers = {
   Query: {
-    users: () => User.find(),
-    userById: (_, { userId }) => User.findById(userId),
+    users: async () => {
+      return User.find()
+    },
+    userById: async (_, { userId }) => {
+      return User.findOne({ _id: userId });
   },
   Mutation: {
-    createUser: (_, { email, userName, password, role, businessName, location }) => {
+    createUser: async (_, { email, userName, password, role, businessName, location }) => {
       const user = new User({
         email,
         userName,
@@ -16,24 +19,29 @@ const userResolvers = {
         businessName,
         location
       });
-      return user.save();
+      return user.create();
     },
-    updateUser: (_, { userId, email, userName, password, role, businessName, location }) => {
-      return User.findByIdAndUpdate(
-        userId,
+    updateUser: async (_, { userId, email, userName, password, role, businessName, location }) => {
+      return User.findOneAndUpdate(
+        { _id: userId },
         { email, userName, password, role, businessName, location },
         { new: true }
       );
     },
-    deleteUser: (_, { userId }) => {
-      return User.findByIdAndDelete(userId);
+    deleteUser: async (_, { userId }) => {
+      return User.findOneAndDelete({ _id: userId });
     },
-  },
-  User: {
-    posts: (parent) => {
-      return Post.find({ _id: { $in: parent.posts } });
-    },
+    createReview: async (parent, { user, postId, text, rate }) => {
+      const newReview = await Review.create({
+          user,
+          postId,
+          text,
+          rate,
+        });
+        return newReview;
+      }
+    }
   },
 };
 
-module.exports = userResolvers;
+module.exports = resolvers;
