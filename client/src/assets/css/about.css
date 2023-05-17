@@ -1,0 +1,45 @@
+.container {
+  text-align: center;
+
+}
+
+.container h1 {
+  font-size: 2.5rem;
+  color: #4a4a4a;
+  margin-bottom: 1rem;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adds a shadow to the text */
+}
+
+
+.container p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: #4a4a4a;
+}
+
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.icon-container div {
+  text-align: center;
+}
+
+.icon-container p {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
