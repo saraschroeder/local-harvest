@@ -9,6 +9,7 @@ const reviewSchema = new Schema({
   },
   postId: {
     type: Schema.Types.ObjectId,
+    ref: 'Post',
     required: true,
   },
   text: {
@@ -21,6 +22,6 @@ const reviewSchema = new Schema({
   },
 });
 
-const Review = new model('Review', reviewSchema)
+const Review = model('Review', reviewSchema)
 
 module.exports = Review;
