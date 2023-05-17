@@ -12,6 +12,10 @@ function Signup() {
             <div className="card-body">
               <h2 className="text-center mb-4">Signup</h2>
               <form>
+              <div className="form-group">
+                  <label>Username</label>
+                  <input type="username" className="form-control" required />
+                </div>
                 <div className="form-group">
                   <label>Email</label>
                   <input type="email" className="form-control" required />
