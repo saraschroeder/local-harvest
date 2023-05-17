@@ -1,5 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Review } = require("../models");
+const { User, Review, Post } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const { gql } = require("apollo-server");
@@ -13,7 +13,29 @@ const typeDefs = gql`
     role: String!
     businessName: String
     location: String
+    description: String
+    image: UserImage
     posts: [Post]
+  }
+  type UserImage {
+    data: String
+    contentType: String
+  }
+
+  input CreateUserInput {
+    email: String!
+    userName: String!
+    password: String!
+    role: String!
+    businessName: String
+    location: String
+    description: String
+    image: UserImageInput
+  }
+
+  input UserImageInput {
+    data: String
+    contentType: String
   }
   type Review {
     _id: ID!
@@ -29,21 +51,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createUser(
-      email: String!
-      userName: String!
-      password: String!
-      role: String!
-      businessName: String
-    ): User
-    updateUser(
-      userId: ID!
-      email: String
-      userName: String
-      password: String
-      role: String
-      businessName: String
-    ): User
+    createUser(input: CreateUserInput!): User
+    updateUser(userId: ID!, input: CreateUserInput!): User
     deleteUser(userId: ID!): User
     createReview(user: ID!, postId: ID!, text: String!, rate: Int!): Review
     deleteReview(postId: ID!): Review

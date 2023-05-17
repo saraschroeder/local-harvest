@@ -11,7 +11,7 @@ const resolvers = {
     },
   },
   Mutation: {
-    createUser: async (_, { email, userName, password, role, businessName, location }) => {
+    createUser: async (_, { email, userName, password, role, businessName, location, description, image }) => {
       const user = new User({
         email,
         userName,
@@ -19,13 +19,15 @@ const resolvers = {
         role,
         businessName,
         location,
+        description,
+        image
       });
-      return user.create();
+      return user.save();
     },
-    updateUser: async (_, { userId, email, userName, password, role, businessName, location }) => {
+    updateUser: async (_, { userId, ...updateData }) => {
       return User.findOneAndUpdate(
         { _id: userId },
-        { email, userName, password, role, businessName, location },
+        updateData,
         { new: true }
       );
     },
