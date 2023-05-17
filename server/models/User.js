@@ -26,6 +26,10 @@ const userSchema = new Schema({
   location: {
     type: String,
   },
+  description: {
+    type: String,
+  },
+  image: { data: Buffer, contentType: String }, // Image field
   post: [Post.schema],
 });
 
