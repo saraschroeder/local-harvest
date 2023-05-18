@@ -35,3 +35,65 @@
 // }
 
 // export default Main;
+
+
+
+import { motion } from "framer-motion";
+import { FaStar } from "react-icons/fa";
+import "../assets/css/home.css";
+
+function Main() {
+  const farmers = [
+    {
+      id: 1,
+      avatar: "https://example.com/avatar1.jpg",
+      name: "John Doe",
+      location: "New York, USA",
+      description: "Experienced farmer with a passion for organic produce.",
+      averageRating: 4.8,
+    },
+    {
+      id: 2,
+      avatar: "https://example.com/avatar2.jpg",
+      name: "Jane Smith",
+      location: "London, UK",
+      description: "Specializes in sustainable farming practices.",
+      averageRating: 4.5,
+    },
+  ];
+
+  return (
+    <div className="main-container">
+      {farmers.map((farmer, index) => (
+        <motion.div
+          className="farmer-card"
+          key={farmer.id}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: index * 0.2 }}
+        >
+          <img className="avatar" src={farmer.avatar} alt="Farmer's avatar" />
+          <h2 className="name">{farmer.name}</h2>
+          <p className="location">{farmer.location}</p>
+          <p className="description">{farmer.description}</p>
+          <div className="rating">
+            <span className="rating-text">Average Rating:</span>
+            <span className="star-icons">
+              {Array.from(
+                { length: Math.floor(farmer.averageRating) },
+                (_, index) => (
+                  <FaStar key={index} className="star-icon" />
+                )
+              )}
+            </span>
+          </div>
+          <button className="view-posts-btn">View Posts</button>
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
+export default Main;
+
+
