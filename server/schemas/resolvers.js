@@ -66,6 +66,39 @@ const resolvers = {
         return reviewToDelete;
       }
     },
+    createPost: async(parent, { post }, context) => {
+      const newPost = await User.findOneAndUpdate(
+        { _id: context.user._id},
+        { $addToSet: { post } },
+        { new: true }
+      );
+      if (!newPost) {
+        throw new AuthenticationError("Couldn't create new post!" );
+      }
+      return newPost
+    },
+    updatePost: async(parent, { id, post }) => {
+      const updatedPost = await Post.findOneAndUpdate(
+        { _id: id },
+        { $set: post },
+        { new: true }
+      );
+      if(!updatedPost) {
+        throw new AuthenticationError("Couldn't update post!" );
+      }
+      return updatedPost
+    },
+    deletePost: async(parent, { postId }, context) => {
+      const postDeleted = await User.findOneAndUpdate(
+        { _id: context.user._id},
+        { $pull: { post: { postId } } },
+        { new: true }
+      );
+      if (!postDeleted) {
+        throw new AuthenticationError("Couldn't delete post!" );
+      }
+      return postDeleted
+    }
   },
 };
 
