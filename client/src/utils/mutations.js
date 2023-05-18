@@ -132,3 +132,36 @@ export const DELETE_POST = gql`
   }
 }
 `
+//mutation to create a new review
+export const CREATE_REVIEW = gql`
+mutation CreateReview($reviewData: ReviewInput!) {
+  createReview(reviewData: $reviewData) {
+    _id
+    postId
+    text
+    rate
+  }
+}
+`
+//mutation to update a review
+export const UPDATE_REVIEW = gql`
+  mutation UpdateReview($reviewData: ReviewInput!) {
+    updateReview(reviewData: $reviewData) {
+      _id
+      postId
+      text
+      rate
+    }
+  }
+`
+//mutation to delete review by its postId
+export const DELETE_REVIEW = gql`
+mutation DeleteReview($postId: ID!) {
+  deleteReview(postId: $postId) {
+    _id
+    postId
+    text
+    rate
+  }
+}
+`
