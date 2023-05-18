@@ -34,29 +34,25 @@ const resolvers = {
     deleteUser: async (_, { userId }) => {
       return User.findOneAndDelete({ _id: userId });
     },
-    createReview: async (parent, { user, postId, text, rate }, context) => {
+    createReview: async (parent, { reviewData }, context) => {
       if (context.user) {
-        const newReview = await Review.create({
-          user,
-          postId,
-          text,
-          rate,
-        });
+        const newReview = await Review.create(reviewData);
         return newReview;
       }
       throw new AuthenticationError("Something went wrong!");
     },
-    updateReview: async (parent, { postId, text, rate }, context) => {
-      if (context.user) {
-        const updatedReview = await Review.findOneAndUpdate(
-          { postId, user: context.user._id },
-          { text, rate },
-          { new: true }
-        );
-        return updatedReview;
-      }
-      throw new AuthenticationError("Something went wrong!");
-    },
+
+updateReview: async (parent, { reviewData }, context) => {
+  if (context.user) {
+    const updatedReview = await Review.findOneAndUpdate(
+      { _id: reviewData.reviewId, user: context.user._id },
+      reviewData,
+      { new: true }
+    );
+    return updatedReview;
+  }
+  throw new AuthenticationError("Something went wrong!");
+},
     deleteReview: async (parent, { postId }, context) => {
       if (context.user) {
         const reviewToDelete = await Review.findOneAndDelete({
