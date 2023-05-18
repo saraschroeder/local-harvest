@@ -94,6 +94,7 @@ const typeDefs = gql`
     createPost(post: PostInput!): Post
     updatePost(id: ID!, post: PostInput!): Post
     deletePost(postId: ID!): Post
+    login(email:String!, password: String!): Auth
   }
 `;
 

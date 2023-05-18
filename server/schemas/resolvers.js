@@ -1,5 +1,6 @@
 const { User, Review, Post } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
+const { signToken } = require('../utils/auth')
 
 const resolvers = {
   Query: {
@@ -94,7 +95,21 @@ updateReview: async (parent, { reviewData }, context) => {
         throw new AuthenticationError("Couldn't delete post!" );
       }
       return postDeleted
-    }
+    },
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+      if (!user) {
+          throw new AuthenticationError("User not found");
+      }
+      const correctPassword = await user.verifyPassword(password);
+      if (!correctPassword) {
+          throw new AuthenticationError('Wrong password!');
+      }
+      // If password is correct, create signin token
+      const token = signToken(user);
+      return { token, user }
+
+  },
   },
 };
 
