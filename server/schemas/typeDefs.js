@@ -1,8 +1,8 @@
-const { AuthenticationError } = require("apollo-server-express");
-const { User, Review, Post } = require("../models");
-const { signToken } = require("../utils/auth");
+// const { AuthenticationError } = require("apollo-server-express");
+// const { User, Review, Post } = require("../models");
+// const { signToken } = require("../utils/auth");
 
-const { gql } = require("apollo-server");
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   type User {
@@ -45,6 +45,34 @@ const typeDefs = gql`
     rate: Int!
   }
 
+  type Post {
+    _id: ID!
+    role: String!
+    businessName: String!
+    title: String!
+    image: String!
+    description: String!
+    price: Float!
+    location: String!
+    reviews: [Review!]
+    rateAverage: Float
+  }
+
+  input PostInput {
+    role: String!
+    businessName: String!
+    title: String!
+    image: String!
+    description: String!
+    price: Float!
+    location: String!
+  }
+
+  type Auth {
+    token: ID!
+    user: User
+  }
+
   type Query {
     users: [User]
     userById(userId: ID!): User
@@ -57,6 +85,9 @@ const typeDefs = gql`
     createReview(user: ID!, postId: ID!, text: String!, rate: Int!): Review
     deleteReview(postId: ID!): Review
     updateReview(postId: ID!, text: String!, rate: Int!): Review
+    createPost(post: PostInput!): Post
+    updatePost(id: ID!, post: PostInput!): Post
+    deletePost(postId: ID!): Post
   }
 `;
 

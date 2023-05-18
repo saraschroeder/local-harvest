@@ -1,5 +1,8 @@
 const { Schema, model } = require("mongoose");
 
+// Import schema from Post.js
+const postSchema = require('./Post')
+
 const userSchema = new Schema({
   email: {
     type: String,
@@ -30,7 +33,7 @@ const userSchema = new Schema({
     type: String,
   },
   image: { data: Buffer, contentType: String }, // Image field
-  post: [Post.schema],
+  post: [postSchema],
 });
 
 const User = model("User", userSchema);
