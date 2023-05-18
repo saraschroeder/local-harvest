@@ -1,19 +1,7 @@
 const { Schema, model } = require('mongoose');
-// Import schema from Review.js
-const reviewSchema = require('./Review')
 
 const postSchema = new Schema({
     // Check with team: should we add [postSchema] in user and not have role, businessName and location here??
-    role: {
-      type: String,
-      ref: 'User',
-      required: true
-    },
-    businessName: {
-      type: String,
-      ref: 'User',
-      required: true
-    },
     title: {
       type: String,
       required: true
@@ -30,11 +18,10 @@ const postSchema = new Schema({
       type: Number,
       required: true
     },
-    location: {
-      type: String,
-      required: true
-    },
-    reviews: [reviewSchema]
+    reviews: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Review'
+    }]
   },
   {
     toJSON: {
@@ -42,7 +29,7 @@ const postSchema = new Schema({
     }
 });
   
-  // Virtual for calculating rate average
+  // Virtual to calculate rate average
   postSchema.virtual('rateAverage').get(function () {
     if (this.reviews.length === 0) {
       return 0;
@@ -55,8 +42,6 @@ const postSchema = new Schema({
     return totalRate / this.reviews.length;
   });
   
-//   const Post = model('Post', postSchema);
+  const Post = model('Post', postSchema);
 
-//   module.exports = Post
-
-module.exports = postSchema
+  module.exports = Post

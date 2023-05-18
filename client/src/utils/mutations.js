@@ -71,13 +71,10 @@ export const CREATE_POST = gql`
   mutation createPost($post: PostInput!) {
   createPost(post: $post) {
     _id
-    role
-    businessName
     title
     image
     description
     price
-    location
     reviews {
       _id
       postId
@@ -93,13 +90,10 @@ export const UPDATE_POST = gql`
   mutation updatePost($updatePostId: ID!, $post: PostInput!) {
   updatePost(id: $updatePostId, post: $post) {
     _id
-    role
-    businessName
     title
     image
     description
     price
-    location
     reviews {
       _id
       postId
@@ -115,13 +109,10 @@ export const DELETE_POST = gql`
   mutation deletePost($postId: ID!) {
   deletePost(postId: $postId) {
     _id
-    role
-    businessName
     title
     image
     description
     price
-    location
     reviews {
       _id
       postId
