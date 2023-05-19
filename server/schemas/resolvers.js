@@ -27,18 +27,11 @@ const resolvers = {
     },
   },
   Mutation: {
-    createUser: async (_, { email, userName, password, role, businessName, location, description, image }) => {
-      const user = new User({
-        email,
-        userName,
-        password,
-        role,
-        businessName,
-        location,
-        description,
-        image
-      });
-      return user.save();
+    createUser: async (_, { input }) => {
+      const user = await User.create(input);
+      // Create signin token
+      const token = signToken(user);
+      return { token, user }
     },
 
     updateUser: async (_, { userId, ...updateData }) => {
