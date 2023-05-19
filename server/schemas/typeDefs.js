@@ -15,7 +15,7 @@ const typeDefs = gql`
     location: String
     description: String
     image: UserImage
-    posts: [Post]
+    post: [Post]
   }
   type UserImage {
     data: String
@@ -27,51 +27,53 @@ const typeDefs = gql`
     userName: String!
     password: String!
     role: String!
-    businessName: String
-    location: String
-    description: String
-    image: UserImageInput
+    farmerInput: FarmerInput
   }
 
   input UserImageInput {
     data: String
     contentType: String
   }
+
   type Review {
     _id: ID!
+    userId: String!
     postId: ID!
     text: String!
     rate: Int!
   }
 
   input ReviewInput {
+    userId: String!
     postId: ID!
     text: String!
     rate: Int!
   }
   
-
   type Post {
     _id: ID!
-    role: String!
-    businessName: String!
+    userId: String!
     title: String!
     image: String!
     description: String!
     price: Float!
-    location: String!
-    reviews: [Review!]
+    reviews: [Review]
     rateAverage: Float
   }
 
   input PostInput {
-    role: String!
-    businessName: String!
     title: String!
     image: String!
     description: String!
     price: Float!
-    location: String!
+  }
+
+  input FarmerInput {
+    role: String!
+    businessName: String
+    location: String
+    description: String
+    image: UserImageInput
   }
 
   type Auth {
@@ -88,13 +90,14 @@ const typeDefs = gql`
     createUser(input: CreateUserInput!): User
     updateUser(userId: ID!, input: CreateUserInput!): User
     deleteUser(userId: ID!): User
-    createReview(user: ID!, postId: ID!, text: String!, rate: Int!): Review
-    deleteReview(postId: ID!): Review
-    updateReview(postId: ID!, text: String!, rate: Int!): Review
+    createReview(input: ReviewInput!): Review
+    deleteReview(reviewId: ID!): Review
+    updateReview(reviewId: ID!, input: ReviewInput): Review
     createPost(post: PostInput!): Post
-    updatePost(id: ID!, post: PostInput!): Post
+    updatePost(postId: ID!, post: PostInput!): Post
     deletePost(postId: ID!): Post
     login(email:String!, password: String!): Auth
+    addFarmerInfo(userId: ID!, input: FarmerInput!): User
   }
 `;
 
