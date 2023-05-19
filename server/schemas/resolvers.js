@@ -1,6 +1,21 @@
 const { User, Review, Post } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
-const { signToken } = require('../utils/auth')
+const { signToken } = require('../utils/auth');
+const stripe = require('stripe')('sk_test_51N9BOWDpKmnLMg2OJUManAkWYJVsMJ8GPXH6NC6Iv3gGDoX49EnHLnTNy9pIyPNAQAHYROjB6OunybqaE5uVDNKO0019EaAf3A')
+
+async function createPaymentIntent(amount) {
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount,
+      currency: 'usd'
+    });
+    console.log(paymentIntent);
+    return paymentIntent;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
 const resolvers = {
   Query: {
@@ -25,6 +40,7 @@ const resolvers = {
       });
       return user.save();
     },
+
     updateUser: async (_, { userId, ...updateData }) => {
       return User.findOneAndUpdate(
         { _id: userId },
@@ -113,4 +129,4 @@ updateReview: async (parent, { reviewData }, context) => {
   },
 };
 
-module.exports = resolvers;
+module.exports = resolvers, createPaymentIntent;
