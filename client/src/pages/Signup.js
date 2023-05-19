@@ -102,15 +102,16 @@ console.log(error);
                   <label>Please select your role:</label>
                   <select
                     className="form-control"
-                    value={userRole}
+                    value={formState.role}
                     name="role"
                     onChange={(e) => {
                       setUserRole(e.target.value);
                       handleChange(e);
                     }}
                   >
-                    <option>Consumer</option>
-                    <option>Farmer</option>
+                    <option value=""></option>
+                    <option value="Consumer">Consumer</option>
+                    <option value="Farmer">Farmer</option>
                   </select>
                 </div>
                 {userRole === "Farmer" && (
@@ -150,6 +151,7 @@ console.log(error);
                     </div>
                   </div>
                 )}
+                {userRole === "Consumer" && (<></>)}
                 <button type="submit" className="btn btn-custom mt-4 w-100">
                   Signup
                 </button>
