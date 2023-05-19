@@ -1,21 +1,25 @@
 import React, { useState } from "react";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/css/signup.css";
 import { CREATE_USER } from "../utils/mutations";
-import { useMutation } from '@apollo/client'
+import { useMutation } from "@apollo/client";
+import Auth from '../utils/auth';
+
 function Signup() {
-  const [userRole, setUserRole] = useState('');
+  const [userRole, setUserRole] = useState("");
   const [formState, setFormState] = useState({
-    userName: '',
-    email: '',
-    password: '',
-    role: '',
-    businessName: '',
-    location: '',
-    description: '',
+    userName: "",
+    email: "",
+    password: "",
+    role: "",
+    businessName: "",
+    location: "",
+    description: "",
   });
-  const [createUser, { error, data }] = useMutation(CREATE_USER);
+
+  const [createUser, {error}] = useMutation(CREATE_USER);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -25,9 +29,21 @@ function Signup() {
     });
   };
 
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formState);
 
+    try {
+      const { data } = await createUser({
+        variables: { input: {...formState} },
+      });
+      console.log(data)
 
-
+      Auth.login(data.addUser.token);
+    } catch (e) {
+      console.error('oh my god it isnt working');
+    }
+  };
 
   return (
     <div className="container mt-5 signup-page">
@@ -36,23 +52,52 @@ function Signup() {
           <div className="card signup-card">
             <div className="card-body">
               <h2 className="text-center mb-4">Signup</h2>
-              <form>
+              <form onClick={handleFormSubmit}>
                 <div className="form-group">
                   <label>Username</label>
-                  <input type="username" value={formState.userName} className="form-control" required />
+
+                  <input
+                    type="text"
+                    name="userName"
+                    value={formState.userName}
+                    onChange={handleChange}
+                    className="form-control"
+                    required
+                  />
                 </div>
                 <div className="form-group">
                   <label>Email</label>
-                  <input type="email" value={formState.email} className="form-control" required />
+                  <input
+                    type="email"
+                    name="email"
+                    value={formState.email}
+                    onChange={handleChange}
+                    className="form-control"
+                    required
+                  />
                 </div>
                 <div className="form-group mt-3">
                   <label>Password</label>
-                  <input type="password" value={formState.password} className="form-control" required />
+                  <input
+                    type="password"
+                    name="password"
+                    value={formState.password}
+                    onChange={handleChange}
+                    className="form-control"
+                    required
+                  />
                 </div>
                 <div className="form-group mt-3">
                   <label>Role</label>
-                  <select className="form-control" value={formState.role} 
-                  onChange={(e) => {setUserRole(e.target.value);handleChange(e)}}>
+                  <select
+                    className="form-control"
+                    value={formState.role}
+                    name="role"
+                    onChange={(e) => {
+                      setUserRole(e.target.value);
+                      handleChange(e);
+                    }}
+                  >
                     <option>Consumer</option>
                     <option>Farmer</option>
                   </select>
@@ -62,28 +107,39 @@ function Signup() {
                     <div className="form-group">
                       <label>Business Name</label>
                       <input
-                        type="business-name"
+                        type="text"
+                        name="businessName"
                         value={formState.businessName}
+                        onChange={handleChange}
                         className="form-control"
                         required
                       />
                     </div>
                     <div className="form-group">
                       <label>Location</label>
-                      <input type="location" value={formState.location} className="form-control" required />
+                      <input
+                        type="text"
+                        name="location"
+                        value={formState.location}
+                        onChange={handleChange}
+                        className="form-control"
+                        required
+                      />
                     </div>
                     <div className="form-group mt-3">
                       <label>Description</label>
                       <input
-                        type="description"
+                        type="text"
+                        name="description"
                         value={formState.description}
+                        onChange={handleChange}
                         className="form-control"
                         required
                       />
                     </div>
                   </div>
                 )}
-                <button type="submit" className="btn btn-custom mt-4 w-100">
+                <button type="submit"  className="btn btn-custom mt-4 w-100">
                   Signup
                 </button>
               </form>
@@ -94,6 +150,9 @@ function Signup() {
                     Login
                   </Link>
                 </p>
+                {error && (
+              <div className="my-3 p-3 bg-danger text-white">
+                {error.message}</div>)}
               </div>
             </div>
           </div>
