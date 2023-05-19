@@ -80,6 +80,13 @@ const typeDefs = gql`
     userById(userId: ID!): User
   }
 
+  type PaymentIntent {
+  id: ID!
+  client_secret: String!
+  amount: Int!
+  currency: String!
+}
+
   type Mutation {
     createUser(input: CreateUserInput): Auth
     updateUser(userId: ID!, input: CreateUserInput): Auth
@@ -91,6 +98,7 @@ const typeDefs = gql`
     updatePost(postId: ID!, post: PostInput!): Post
     deletePost(postId: ID!): Post
     login(email:String!, password: String!): Auth
+    createPaymentIntent(amount: Int!): PaymentIntent!
   }
 `;
 
