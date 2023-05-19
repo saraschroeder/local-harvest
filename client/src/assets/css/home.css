@@ -1,0 +1,72 @@
+.main-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 30px;
+}
+
+.farmer-card {
+  background-color: #bcc7bc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 4px;
+  width: 300px;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.location {
+  margin-top: 5px;
+  font-style: italic;
+}
+
+.description {
+  margin-top: 10px;
+}
+
+.rating {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #183a1d;
+  display: flex;
+  align-items: center;
+}
+
+.rating span {
+  margin-right: 5px;
+}
+
+.view-posts-btn {
+  margin-top: 10px;
+  border-radius: 0.5em;
+  background-color: #f0a04b;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.view-posts-btn:hover {
+  background-color: #f6c453;
+
+}
+
+.star-icons {
+    color: #f0a04b;
+}

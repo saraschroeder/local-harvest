@@ -33,8 +33,8 @@ function Header() {
         >
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link" to="/home">
-                Shop
+              <Link className="nav-link" to="/">
+                Explore
               </Link>
             </li>
             <li className="nav-item">
