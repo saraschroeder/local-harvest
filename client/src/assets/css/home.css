@@ -38,6 +38,7 @@
 
 .rating {
   margin-top: 10px;
+  margin-bottom: 10px;
   font-weight: bold;
   color: #183a1d;
   display: flex;
@@ -55,12 +56,15 @@
   color: #fff;
   border: none;
   padding: 8px 16px;
+  margin-top: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  text-decoration: none;
 }
 
 .view-posts-btn:hover {
   background-color: #f6c453;
+
 }
 
 .star-icons {

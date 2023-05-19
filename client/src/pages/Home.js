@@ -37,9 +37,9 @@
 // export default Main;
 
 
-
 import { motion } from "framer-motion";
 import { FaStar } from "react-icons/fa";
+import { Link } from "react-router-dom"; // Import Link component
 import "../assets/css/home.css";
 
 function Main() {
@@ -87,7 +87,9 @@ function Main() {
               )}
             </span>
           </div>
-          <button className="view-posts-btn">View Posts</button>
+          <Link to={`/profile/${farmer.id}`} className="view-posts-btn">
+            View Posts
+          </Link>
         </motion.div>
       ))}
     </div>
