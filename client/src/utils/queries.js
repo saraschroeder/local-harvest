@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 // Query to fetch all users
 export const GET_USERS = gql`
@@ -15,8 +15,21 @@ export const GET_USERS = gql`
         data
         contentType
       }
-      posts {
-        // Define the fields you want to retrieve for posts
+      post {
+        _id
+        userId
+        title
+        image
+        description
+        price
+        reviews {
+          _id
+          userId
+          postId
+          text
+          rate
+        }
+        rateAverage
       }
     }
   }
@@ -37,8 +50,21 @@ export const GET_USER_BY_ID = gql`
         data
         contentType
       }
-      posts {
-        // Define the fields you want to retrieve for posts
+      post {
+        _id
+        userId
+        title
+        image
+        description
+        price
+        reviews {
+          _id
+          userId
+          postId
+          text
+          rate
+        }
+        rateAverage
       }
     }
   }
