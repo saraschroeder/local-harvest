@@ -97,7 +97,6 @@ const typeDefs = gql`
     updatePost(postId: ID!, post: PostInput!): Post
     deletePost(postId: ID!): Post
     login(email:String!, password: String!): Auth
-    addFarmerInfo(userId: ID!, input: FarmerInput!): User
   }
 `;
 
