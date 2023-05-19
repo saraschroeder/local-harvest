@@ -87,8 +87,8 @@ function Signup() {
                     required
                   />
                 </div>
-                <div className="form-group mt-3">
-                  <label>Role</label>
+                <div className="form-group mt-3  custom-select-role">
+                  <label>Please select your role:</label>
                   <select
                     className="form-control"
                     value={formState.role}
@@ -139,7 +139,7 @@ function Signup() {
                     </div>
                   </div>
                 )}
-                <button type="submit"  className="btn btn-custom mt-4 w-100">
+                <button type="submit" className="btn btn-custom mt-4 w-100">
                   Signup
                 </button>
               </form>
@@ -151,8 +151,10 @@ function Signup() {
                   </Link>
                 </p>
                 {error && (
-              <div className="my-3 p-3 bg-danger text-white">
-                {error.message}</div>)}
+                  <div className="my-3 p-3 bg-danger text-white">
+                    {error.message}
+                  </div>
+                )}
               </div>
             </div>
           </div>
