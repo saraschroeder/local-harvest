@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/css/signup.css";
 import { CREATE_USER } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
+import Auth from '../utils/auth';
 
 function Signup() {
   const [userRole, setUserRole] = useState("");
@@ -17,7 +18,7 @@ function Signup() {
     description: "",
   });
 
-  const [createUser, { error, data }] = useMutation(CREATE_USER);
+  const [createUser, {error}] = useMutation(CREATE_USER);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -28,6 +29,22 @@ function Signup() {
     });
   };
 
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formState);
+
+    try {
+      const { data } = await createUser({
+        variables: { input: {...formState} },
+      });
+      console.log(data)
+
+      Auth.login(data.addUser.token);
+    } catch (e) {
+      console.error('oh my god it isnt working');
+    }
+  };
+
   return (
     <div className="container mt-5 signup-page">
       <div className="row justify-content-center">
@@ -35,9 +52,10 @@ function Signup() {
           <div className="card signup-card">
             <div className="card-body">
               <h2 className="text-center mb-4">Signup</h2>
-              <form>
+              <form onClick={handleFormSubmit}>
                 <div className="form-group">
                   <label>Username</label>
+
                   <input
                     type="text"
                     name="userName"
@@ -121,7 +139,7 @@ function Signup() {
                     </div>
                   </div>
                 )}
-                <button type="submit" className="btn btn-custom mt-4 w-100">
+                <button type="submit"  className="btn btn-custom mt-4 w-100">
                   Signup
                 </button>
               </form>
@@ -132,6 +150,9 @@ function Signup() {
                     Login
                   </Link>
                 </p>
+                {error && (
+              <div className="my-3 p-3 bg-danger text-white">
+                {error.message}</div>)}
               </div>
             </div>
           </div>
