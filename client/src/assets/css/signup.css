@@ -9,6 +9,15 @@
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
+.form-group label {
+  text-align: left;
+  display: block;
+}
+
+.custom-select-role {
+ margin-bottom: 5px;
+}
+
 .btn-custom {
   background-color: #dc7027; 
   color: white;
