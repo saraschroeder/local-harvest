@@ -98,8 +98,8 @@ console.log(error);
                     required
                   />
                 </div>
-                <div className="form-group mt-3">
-                  <label>Role</label>
+                <div className="form-group mt-3  custom-select-role">
+                  <label>Please select your role:</label>
                   <select
                     className="form-control"
                     value={userRole}
@@ -150,7 +150,7 @@ console.log(error);
                     </div>
                   </div>
                 )}
-                <button type="submit"  className="btn btn-custom mt-4 w-100">
+                <button type="submit" className="btn btn-custom mt-4 w-100">
                   Signup
                 </button>
               </form>
