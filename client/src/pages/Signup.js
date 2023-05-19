@@ -2,9 +2,32 @@ import React, { useState } from "react";
 import { Link} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/css/signup.css";
-
+import { CREATE_USER } from "../utils/mutations";
+import { useMutation } from '@apollo/client'
 function Signup() {
   const [userRole, setUserRole] = useState('');
+  const [formState, setFormState] = useState({
+    userName: '',
+    email: '',
+    password: '',
+    role: '',
+    businessName: '',
+    location: '',
+    description: '',
+  });
+  const [createUser, { error, data }] = useMutation(CREATE_USER);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
+
+
+
 
   return (
     <div className="container mt-5 signup-page">
@@ -16,19 +39,20 @@ function Signup() {
               <form>
                 <div className="form-group">
                   <label>Username</label>
-                  <input type="username" className="form-control" required />
+                  <input type="username" value={formState.userName} className="form-control" required />
                 </div>
                 <div className="form-group">
                   <label>Email</label>
-                  <input type="email" className="form-control" required />
+                  <input type="email" value={formState.email} className="form-control" required />
                 </div>
                 <div className="form-group mt-3">
                   <label>Password</label>
-                  <input type="password" className="form-control" required />
+                  <input type="password" value={formState.password} className="form-control" required />
                 </div>
                 <div className="form-group mt-3">
                   <label>Role</label>
-                  <select className="form-control" onChange={(e) => setUserRole(e.target.value)}>
+                  <select className="form-control" value={formState.role} 
+                  onChange={(e) => {setUserRole(e.target.value);handleChange(e)}}>
                     <option>Consumer</option>
                     <option>Farmer</option>
                   </select>
@@ -39,18 +63,20 @@ function Signup() {
                       <label>Business Name</label>
                       <input
                         type="business-name"
+                        value={formState.businessName}
                         className="form-control"
                         required
                       />
                     </div>
                     <div className="form-group">
                       <label>Location</label>
-                      <input type="location" className="form-control" required />
+                      <input type="location" value={formState.location} className="form-control" required />
                     </div>
                     <div className="form-group mt-3">
                       <label>Description</label>
                       <input
                         type="description"
+                        value={formState.description}
                         className="form-control"
                         required
                       />
