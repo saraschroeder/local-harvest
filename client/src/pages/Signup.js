@@ -2,27 +2,29 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/css/signup.css";
-import { CREATE_USER } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
+import { CREATE_USER } from "../utils/mutations";
 import Auth from '../utils/auth';
 
-function Signup() {
+const Signup = () => {
+  // Set initial role state
   const [userRole, setUserRole] = useState("");
+  // Set initial form state
   const [formState, setFormState] = useState({
-    userName: "",
     email: "",
+    userName: "",
     password: "",
     role: "",
     businessName: "",
     location: "",
-    description: "",
+    description: ""
   });
 
+// Using mutation to create new user
   const [createUser, {error}] = useMutation(CREATE_USER);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
     setFormState({
       ...formState,
       [name]: value,
@@ -32,17 +34,26 @@ function Signup() {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(formState);
-
+   
     try {
       const { data } = await createUser({
-        variables: { input: {...formState} },
+        variables: { input: formState },
       });
-      console.log(data)
-
-      Auth.login(data.addUser.token);
+console.log(data)
+console.log(error);
+      Auth.login(data.createUser.token);
     } catch (e) {
-      console.error('oh my god it isnt working');
+      console.error(e);
     }
+    setFormState({
+      email: "",
+      userName: "",
+      password: "",
+      role: "",
+      businessName: "",
+      location: "",
+      description: ""
+  })
   };
 
   return (
@@ -52,7 +63,7 @@ function Signup() {
           <div className="card signup-card">
             <div className="card-body">
               <h2 className="text-center mb-4">Signup</h2>
-              <form onClick={handleFormSubmit}>
+              <form onSubmit={handleFormSubmit}>
                 <div className="form-group">
                   <label>Username</label>
 
@@ -91,7 +102,7 @@ function Signup() {
                   <label>Please select your role:</label>
                   <select
                     className="form-control"
-                    value={formState.role}
+                    value={userRole}
                     name="role"
                     onChange={(e) => {
                       setUserRole(e.target.value);
@@ -150,11 +161,6 @@ function Signup() {
                     Login
                   </Link>
                 </p>
-                {error && (
-                  <div className="my-3 p-3 bg-danger text-white">
-                    {error.message}
-                  </div>
-                )}
               </div>
             </div>
           </div>

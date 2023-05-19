@@ -2,33 +2,41 @@ import { gql } from "@apollo/client";
 
 // Mutation to create a user
 export const CREATE_USER = gql`
-  mutation CreateUser($input: CreateUserInput!) {
+  mutation CreateUser($input: CreateUserInput) {
     createUser(input: $input) {
-    email
-    userName
-    role
+    token
+    user {
+      email
+      userName
+      role
+    } 
   }
   }
 `;
 
 // Mutation to update a user
 export const UPDATE_USER = gql`
-  mutation UpdateUser($userId: ID!, $input: CreateUserInput!) {
-    updateUser(userId: $userId, input: $input) {
+mutation UpdateUser($userId: ID!, $input: CreateUserInput) {
+  updateUser(userId: $userId, input: $input) {
+    token
+    user {
       email
       userName
       role
     }
   }
+}
 `;
 
 // Mutation to delete a user
 export const DELETE_USER = gql`
   mutation DeleteUser($userId: ID!) {
   deleteUser(userId: $userId) {
-    email
-    userName
-    role
+    user {
+      email
+      userName
+      role
+    }
   }
 }
 `;
@@ -99,3 +107,16 @@ export const DELETE_REVIEW = gql`
   }
 }
 `;
+
+export const LOGIN = gql`
+  mutation Login($email: String!, $password: String!) {
+  login(email: $email, password: $password) {
+    token
+    user {
+      userName
+      email
+      role
+    }
+  }
+}
+`

@@ -27,7 +27,9 @@ const typeDefs = gql`
     userName: String!
     password: String!
     role: String!
-    farmerInput: FarmerInput
+    businessName: String
+    location: String
+    description: String
   }
 
   input UserImageInput {
@@ -68,14 +70,6 @@ const typeDefs = gql`
     price: Float!
   }
 
-  input FarmerInput {
-    role: String!
-    businessName: String
-    location: String
-    description: String
-    image: UserImageInput
-  }
-
   type Auth {
     token: ID!
     user: User
@@ -87,9 +81,9 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createUser(input: CreateUserInput!): User
-    updateUser(userId: ID!, input: CreateUserInput!): User
-    deleteUser(userId: ID!): User
+    createUser(input: CreateUserInput): Auth
+    updateUser(userId: ID!, input: CreateUserInput): Auth
+    deleteUser(userId: ID!): Auth
     createReview(input: ReviewInput!): Review
     deleteReview(reviewId: ID!): Review
     updateReview(reviewId: ID!, input: ReviewInput): Review

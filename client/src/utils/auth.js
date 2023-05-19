@@ -34,4 +34,6 @@ class AuthService {
   }
 }
 
-export default new AuthService();
+// Assign instance to a variable before exporting as module default
+const authService = new AuthService();
+export default authService;
