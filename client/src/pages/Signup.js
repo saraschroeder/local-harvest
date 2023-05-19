@@ -1,9 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/css/signup.css";
 
 function Signup() {
+  const [userRole, setUserRole] = useState('');
+
   return (
     <div className="container mt-5 signup-page">
       <div className="row justify-content-center">
@@ -12,7 +14,7 @@ function Signup() {
             <div className="card-body">
               <h2 className="text-center mb-4">Signup</h2>
               <form>
-              <div className="form-group">
+                <div className="form-group">
                   <label>Username</label>
                   <input type="username" className="form-control" required />
                 </div>
@@ -26,11 +28,35 @@ function Signup() {
                 </div>
                 <div className="form-group mt-3">
                   <label>Role</label>
-                  <select className="form-control">
+                  <select className="form-control" onChange={(e) => setUserRole(e.target.value)}>
                     <option>Consumer</option>
                     <option>Farmer</option>
                   </select>
                 </div>
+                {userRole === "Farmer" && (
+                  <div>
+                    <div className="form-group">
+                      <label>Business Name</label>
+                      <input
+                        type="business-name"
+                        className="form-control"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Location</label>
+                      <input type="location" className="form-control" required />
+                    </div>
+                    <div className="form-group mt-3">
+                      <label>Description</label>
+                      <input
+                        type="description"
+                        className="form-control"
+                        required
+                      />
+                    </div>
+                  </div>
+                )}
                 <button type="submit" className="btn btn-custom mt-4 w-100">
                   Signup
                 </button>
