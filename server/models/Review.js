@@ -1,6 +1,10 @@
 const { Schema, model } = require('mongoose');
 
 const reviewSchema = new Schema({
+  userId: {
+    type: String,
+    required: true
+  },
   postId: {
     type: Schema.Types.ObjectId,
     ref: 'Post',
