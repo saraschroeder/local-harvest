@@ -11,19 +11,31 @@ function ViewMyPosts() {
   // Getting farmer info by user logged in
   const { loading: meLoading, data: meData } = useQuery(GET_ME);
   const userData = meData?.me || [];
-  //   const [updatePost] = useMutation(UPDATE_POST);
-  const [deletePost] = useMutation(DELETE_POST);
   // Passing userId
   const userId = userData._id;
-
+  
   // Get all posts from all farmers
   const { loading: postsLoading, data: postData } = useQuery(GET_POSTS);
+ 
+
+  //   const [updatePost] = useMutation(UPDATE_POST);
+  const [deletePost] = useMutation(DELETE_POST, {
+    // Reftching GET_POSTS after deleting a post (need this so we don't need to refresh page)
+    refetchQueries: [{ query: GET_POSTS }],
+  });
+
+  
   if (postsLoading || meLoading) {
     return <p>Loading...</p>;
   }
+
+  // If user is not logged in or not a Farmer
+  if (userData.length === 0 || userData.role !== "Farmer") {
+    return <h3>You need to be a farmer and logged in to see this page</h3>
+   }
   // Function to delete post
   const handleDeletePost = async (postId) => {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    const token = Auth.isLoggedIn() ? Auth.getToken() : null;
     if (!token) {
       return false;
     }
