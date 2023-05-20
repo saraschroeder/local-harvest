@@ -3,9 +3,15 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/css/header.css";
 import logo from "../assets/images/logo.png";
+import Auth from "../utils/auth";
 
 function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(Auth.isLoggedIn());
+
+  const handleLogout = () => {
+    Auth.logout();
+    setIsLoggedIn(false);
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark">
@@ -50,7 +56,11 @@ function Header() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/logout">
+                  <Link className="nav-link"> {Auth.getProfile().data.userName}'s profile
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" onClick={handleLogout}>
                     Logout
                   </Link>
                 </li>
