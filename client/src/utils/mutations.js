@@ -51,6 +51,14 @@ export const CREATE_POST = gql`
       image
       description
       price
+      reviews {
+        _id
+        userId
+        postId
+        text
+        rate
+      }
+      rateAverage
     }
   }
 `;
