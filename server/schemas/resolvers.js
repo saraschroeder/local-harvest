@@ -22,7 +22,15 @@ const resolvers = {
       } catch (error) {
         throw new Error('Failed to fetch posts by farmer');
       }
-    }
+    },
+    me: async (parent, args, context) => {
+
+      if (context.user) {
+          return User.findOne({ _id: context.user._id });
+      }
+      // Throw error if no user is found
+      throw new AuthenticationError("Cannot find a user with this id!");
+  }
   },
   Mutation: {
     createUser: async (_, { input }) => {
@@ -84,9 +92,9 @@ const resolvers = {
       }
       return newPost;
     },
-    updatePost: async (parent, { id, post }) => {
+    updatePost: async (parent, { postId, post }) => {
       const updatedPost = await Post.findOneAndUpdate(
-        { _id: id },
+        { _id: postId },
         { $set: post },
         { new: true }
       );
@@ -96,9 +104,8 @@ const resolvers = {
       return updatedPost;
     },
     deletePost: async (parent, { postId }, context) => {
-      const postDeleted = await User.findOneAndUpdate(
-        { _id: context.user._id },
-        { $pull: { post: { postId } } },
+      const postDeleted = await Post.findOneAndDelete(
+        { _id: postId },
         { new: true }
       );
       if (!postDeleted) {
