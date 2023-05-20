@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { CREATE_PAYMENT_INTENT } from "../utils/mutations";
-import { CardElement, useStripe, useElements, Elements } from "@stripe/react-stripe-js";
+import {
+  CardElement,
+  useStripe,
+  useElements,
+  Elements,
+} from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import "../assets/css/donation.css";
 import { FaCreditCard } from "react-icons/fa";
+import CurrencyInput from "react-currency-input-field";
 
 const Donation: React.FC = () => {
   const [amount, setAmount] = useState(0);
@@ -33,14 +39,14 @@ const Donation: React.FC = () => {
   const handleDonate = async () => {
     if (paymentIntent && stripe && elements) {
       const { client_secret } = paymentIntent;
-  
+
       const cardElement = elements.getElement(CardElement);
-      const card = cardElement ? { card: cardElement } : '';
-  
+      const card = cardElement ? { card: cardElement } : "";
+
       const { error } = await stripe.confirmCardPayment(client_secret, {
         payment_method: card,
       });
-  
+
       if (error) {
         console.error("Payment failed:", error);
       } else {
@@ -55,14 +61,15 @@ const Donation: React.FC = () => {
       <h1>Make a Donation</h1>
       <div className="donation-form">
         <label>Amount (in USD)</label>
-        <input
-          type="number"
-          min="1"
-          value={amount}
-          onChange={(e) => setAmount(Number(e.target.value))}
-          className="form-control"
-          required
+        <CurrencyInput
+          id="donation-amount"
+          name="donation-amount"
+          placeholder="Please enter a number"
+          defaultValue={50}
+          decimalsLimit={2}
+          onValueChange={(value, name) => console.log(value, name)}
         />
+        ;
         <div className="card-element-container">
           <CardElement />
         </div>
