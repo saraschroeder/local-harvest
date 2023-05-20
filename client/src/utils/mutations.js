@@ -43,8 +43,8 @@ export const DELETE_USER = gql`
 
 // Mutation to create a new post
 export const CREATE_POST = gql`
-  mutation CreatePost($post: PostInput!) {
-    createPost(post: $post) {
+  mutation CreatePost($postInput: PostInput!) {
+  createPost(postInput: $postInput) {
       _id
       userId
       title
