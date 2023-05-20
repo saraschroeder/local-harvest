@@ -73,21 +73,39 @@ export const GET_USER_BY_ID = gql`
 // Query to fetch all posts
 export const GET_POSTS = gql`
   query AllPosts {
-  allPosts {
-    _id
-    userId
-    title
-    image
-    description
-    price
-    reviews {
+    allPosts {
       _id
       userId
-      postId
-      text
-      rate
+      title
+      image
+      description
+      price
+      reviews {
+        _id
+        userId
+        postId
+        text
+        rate
+      }
+      rateAverage
     }
-    rateAverage
   }
-}
-`
+`;
+// Query to get logged farmer info
+export const GET_ME = gql`
+  query me {
+    me {
+      _id
+      email
+      userName
+      role
+      businessName
+      location
+      description
+      image {
+        data
+        contentType
+      }
+    }
+  }
+`;

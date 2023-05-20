@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useMutation } from "@apollo/client";
 import { CREATE_POST } from '../utils/mutations';
+import { GET_POSTS } from '../utils/queries';
 
 function CreatePost() {
     // Set initial form state
@@ -13,7 +14,22 @@ function CreatePost() {
       });
 
     // Using mutation to create new user
-    const [createPost, {error}] = useMutation(CREATE_POST)
+    const [createPost, {error}] = useMutation(CREATE_POST, {
+      // Using update to manually modify GET_POSTS query with new post
+      update: (cache, { data: { createPost } }) => {
+        try {
+          // Reading the query from the cache to verify if there is any data
+          const { allPosts } = cache.readQuery({ query: GET_POSTS }) || { allPosts: [] };
+          // Inserting new post in all posts
+          cache.writeQuery({
+            query: GET_POSTS, 
+            data: { allPosts: [...allPosts, createPost] }
+          });
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    })
     //   Saving values from form into formState
     const handleChange = (event) => {
         const { name, value } = event.target;

@@ -86,6 +86,7 @@ const typeDefs = gql`
     users: [User]
     userById(userId: ID!): User
     allPosts: [Post]
+    me: User
   }
 
 
