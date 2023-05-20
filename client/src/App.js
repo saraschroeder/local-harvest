@@ -18,6 +18,7 @@ import { setContext } from "@apollo/client/link/context";
 
 import "./App.css";
 import WrappedDonation from './pages/Donation';
+import CreatePost from './pages/CreatePost';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -52,6 +53,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/about" element={<About />} />
           <Route path="/donation" element={<WrappedDonation />} />
+          <Route path="/create-post" element={<CreatePost />} />
         </Routes>
         <Footer />
       </Router>
