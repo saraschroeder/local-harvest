@@ -69,3 +69,25 @@ export const GET_USER_BY_ID = gql`
     }
   }
 `;
+
+// Query to fetch all posts
+export const GET_POSTS = gql`
+  query AllPosts {
+  allPosts {
+    _id
+    userId
+    title
+    image
+    description
+    price
+    reviews {
+      _id
+      userId
+      postId
+      text
+      rate
+    }
+    rateAverage
+  }
+}
+`

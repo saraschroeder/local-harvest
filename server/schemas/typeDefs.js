@@ -58,7 +58,7 @@ const typeDefs = gql`
     title: String!
     image: String!
     description: String!
-    price: Float!
+    price: String!
     reviews: [Review]
     rateAverage: Float
   }
@@ -67,17 +67,12 @@ const typeDefs = gql`
     title: String!
     image: String!
     description: String!
-    price: Float!
+    price: String!
   }
 
   type Auth {
     token: ID!
     user: User
-  }
-
-  type Query {
-    users: [User]
-    userById(userId: ID!): User
   }
 
   type PaymentIntent {
@@ -87,6 +82,13 @@ const typeDefs = gql`
   currency: String!
 }
 
+  type Query {
+    users: [User]
+    userById(userId: ID!): User
+    allPosts: [Post]
+  }
+
+
   type Mutation {
     createUser(input: CreateUserInput): Auth
     updateUser(userId: ID!, input: CreateUserInput): Auth
@@ -94,7 +96,7 @@ const typeDefs = gql`
     createReview(input: ReviewInput!): Review
     deleteReview(reviewId: ID!): Review
     updateReview(reviewId: ID!, input: ReviewInput): Review
-    createPost(post: PostInput!): Post
+    createPost(postInput: PostInput!): Post
     updatePost(postId: ID!, post: PostInput!): Post
     deletePost(postId: ID!): Post
     login(email:String!, password: String!): Auth
