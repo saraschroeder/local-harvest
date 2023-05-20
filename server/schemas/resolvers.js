@@ -13,6 +13,16 @@ const resolvers = {
     userById: async (_, { userId }) => {
       return User.findOne({ _id: userId });
     },
+    allPosts: async () => {
+      try {
+        // Use the Post model to query for posts with matching userId
+        const posts = await Post.find();
+    
+        return posts;
+      } catch (error) {
+        throw new Error('Failed to fetch posts by farmer');
+      }
+    }
   },
   Mutation: {
     createUser: async (_, { input }) => {
@@ -56,12 +66,19 @@ const resolvers = {
         return reviewToDelete;
       }
     },
-    createPost: async (parent, { post }, context) => {
-      const newPost = await User.findOneAndUpdate(
-        { _id: context.user._id },
-        { $addToSet: { post } },
-        { new: true }
-      );
+    createPost: async (parent, { postInput }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError("You need to be logged in to add posts");
+      }
+      if(context.user.role !== "Farmer") {
+        throw new AuthenticationError("You need to be logged in as a Farmer to add posts");
+      }
+      const userId = context.user._id;
+      const newPost = await Post.create({
+        ...postInput,
+        userId
+      });
+    
       if (!newPost) {
         throw new AuthenticationError("Couldn't create new post!");
       }
