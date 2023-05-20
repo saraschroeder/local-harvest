@@ -104,14 +104,11 @@ const resolvers = {
       return updatedPost;
     },
     deletePost: async (parent, { postId }, context) => {
-      const postDeleted = await Post.findOneAndDelete(
+      return await Post.findOneAndDelete(
         { _id: postId },
         { new: true }
       );
-      if (!postDeleted) {
-        throw new AuthenticationError("Couldn't delete post!");
-      }
-      return postDeleted;
+
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
