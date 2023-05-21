@@ -21,7 +21,7 @@ function Main() {
     return <p>Error :</p>;
   }
 
-  const farmers = data.users.filter((user) => user.role === "farmer");
+  const farmers = data.users.filter((user) => user.role === "Farmer");
 
   return (
     <div className="main-container">
