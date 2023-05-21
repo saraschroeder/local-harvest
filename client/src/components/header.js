@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/css/header.css";
 import logo from "../assets/images/logo.png";
@@ -14,68 +15,45 @@ function Header() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark">
+    <Navbar bg="dark" variant="dark" expand="lg">
       <div className="container">
-        <Link className="navbar-brand" to="/">
+        <Navbar.Brand as={Link} to="/">
           <img src={logo} alt="Logo" className="logo" />
           <span className="navbar-title ml-3">Local Harvest</span>
-        </Link>
-
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
-        <div
-          className="collapse navbar-collapse justify-content-end"
-          id="navbarNav"
-        >
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <Link className="nav-link" to="/">
-                Explore
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/about">
-                About Us
-              </Link>
-            </li>
-            {isLoggedIn ? (
-              <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/cart">
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbar-nav" />
+        <Navbar.Collapse id="navbar-nav">
+          <Nav className="nav-links-right align-items-center">
+            <Nav.Link as={Link} to="/">
+              Explore
+            </Nav.Link>
+            <Nav.Link as={Link} to="/about">
+              About Us
+            </Nav.Link>
+            <div className="ml-lg-auto">
+              {isLoggedIn ? (
+                <NavDropdown
+                  title={`${Auth.getProfile().data.userName}'s profile`}
+                  id="basic-nav-dropdown"
+                >
+                  <NavDropdown.Item as={Link} to="/cart">
                     Cart
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link"> {Auth.getProfile().data.userName}'s profile
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" onClick={handleLogout}>
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item onClick={handleLogout}>
                     Logout
-                  </Link>
-                </li>
-              </>
-            ) : (
-              <li className="nav-item">
-                <Link className="nav-link" to="/login">
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <Nav.Link as={Link} to="/login">
                   Login
-                </Link>
-              </li>
-            )}
-          </ul>
-        </div>
+                </Nav.Link>
+              )}
+            </div>
+          </Nav>
+        </Navbar.Collapse>
       </div>
-    </nav>
+    </Navbar>
   );
 }
 
