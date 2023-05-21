@@ -4,12 +4,16 @@ import { FaStar } from "react-icons/fa";
 import "../assets/css/profile.css";
 import { useParams} from 'react-router-dom';
 import { useState } from "react";
-import { useQuery } from '@apollo/client';
-import { GET_POSTS } from "../utils/queries";
-import { GET_USER_BY_ID } from "../utils/queries";
+import { useQuery, useMutation } from "@apollo/client";
+import { GET_POSTS, GET_USER_BY_ID, GET_ME } from "../utils/queries";
+import { DELETE_POST } from "../utils/mutations";
+import Auth from "../utils/auth";
 
 function Profile() {
-
+  const { loading: meLoading, data: meData } = useQuery(GET_ME);
+  const loggedInUserData = meData?.me || [];
+  // Passing userId
+  const userId = loggedInUserData._id;
   const { farmerId: farmerParam } = useParams();
   // Get all posts from all farmers
   const { loading: postsLoading, data: postData } = useQuery(GET_POSTS);
@@ -25,7 +29,27 @@ function Profile() {
    setRating(selectedRating);
  };
 
-  if (postsLoading || userLoading) {
+ const [deletePost] = useMutation(DELETE_POST, {
+  // Reftching GET_POSTS after deleting a post (need this so we don't need to refresh page)
+  refetchQueries: [{ query: GET_POSTS }],
+});
+
+// Function to delete post
+const handleDeletePost = async (postId) => {
+  const token = Auth.isLoggedIn() ? Auth.getToken() : null;
+  if (!token) {
+    return false;
+  }
+  try {
+    await deletePost({
+      variables: { postId },
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+  if (postsLoading || userLoading || meLoading) {
     return <p>Loading...</p>;
   }
   // If userId selected in not from a Farmer, return the below
@@ -88,6 +112,13 @@ function Profile() {
               onClick={() => setShowCommentForm(true)}
             >
               Add Comment
+            </button>
+            <button
+              className="add-comment-button"
+              onClick={() => handleDeletePost(post._id)}
+              // Show the delete button only to the post creator
+              style={{ display: userId === post.userId ? 'block' : 'none' }}
+            >Delete
             </button>
             {showCommentForm && (
               <div className="comment-form">
