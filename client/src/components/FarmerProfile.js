@@ -69,7 +69,7 @@ function Profile() {
       <div className="profile-avatar"></div>
       <div className="profile-info">
         <h2 className="name">{userData.userById.businessName}</h2>
-        <p className="location">{userData.userById.location}</p>
+        <p className="location">{userData.userById.city}, {userData.userById.state}</p>
       </div>
     </div>
     <div className="description">{userData.userById.description}</div>
@@ -83,7 +83,7 @@ function Profile() {
         <div className="profile-avatar"></div>
         <div className="profile-info">
           <h2 className="name">{userData.userById.businessName}</h2>
-          <p className="location">{userData.userById.location}</p>
+          <p className="location">{userData.userById.city}, {userData.userById.state}</p>
         </div>
       </div>
       <div className="description">{userData.userById.description}</div>
@@ -100,6 +100,7 @@ function Profile() {
             <div className="post-image"></div>
             <h4 className="post-title">{post.title}</h4>
             <p className="post-description">{post.description}</p>
+            <p className="post-description">{post.formattedPrice}</p>
             <button className="add-comment-button">Add Comment</button>
             {/* <div className="comments-section">
               <h5>View Comments</h5>

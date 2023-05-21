@@ -9,7 +9,8 @@ export const GET_USERS = gql`
       userName
       role
       businessName
-      location
+      city
+      state
       description
       image {
         data
@@ -21,7 +22,7 @@ export const GET_USERS = gql`
         title
         image
         description
-        price
+        formattedPrice
         reviews {
           _id
           userId
@@ -44,7 +45,8 @@ export const GET_USER_BY_ID = gql`
       userName
       role
       businessName
-      location
+      city
+      state
       description
       image {
         data
@@ -56,7 +58,7 @@ export const GET_USER_BY_ID = gql`
         title
         image
         description
-        price
+        formattedPrice
         reviews {
           _id
           userId
@@ -79,7 +81,7 @@ export const GET_POSTS = gql`
       title
       image
       description
-      price
+      formattedPrice
       reviews {
         _id
         userId
@@ -100,7 +102,8 @@ export const GET_ME = gql`
       userName
       role
       businessName
-      location
+      city
+      state
       description
       image {
         data
