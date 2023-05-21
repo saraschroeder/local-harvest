@@ -9,42 +9,6 @@ import { GET_POSTS } from "../utils/queries";
 import { GET_USER_BY_ID } from "../utils/queries";
 
 function Profile() {
-  // const farmer = {
-  //   name: "John Doe",
-  //   location: "New York, USA",
-  //   description: "Experienced farmer with a passion for organic produce.",
-  //   posts: [
-  //     {
-  //       id: 1,
-  //       title: "Post 1",
-  //       description: "First post description",
-  //       comments: [
-  //         {
-  //           id: 1,
-  //           author: "Jane Smith",
-  //           text: "Great post!",
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       id: 2,
-  //       title: "Post 2",
-  //       description: "Second post description",
-  //       comments: [
-  //         {
-  //           id: 2,
-  //           author: "Mark Johnson",
-  //           text: "Interesting insights!",
-  //         },
-  //         {
-  //           id: 3,
-  //           author: "Emily Brown",
-  //           text: "Love this!",
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // };
 
   const { farmerId: farmerParam } = useParams();
   // Get all posts from all farmers
@@ -54,15 +18,12 @@ function Profile() {
     variables: { userId: farmerParam },
   });
 
-
   const [showCommentForm, setShowCommentForm] = useState(false);
   const [rating, setRating] = useState(0);
 
-
- const handleRating = (selectedRating) => {
+  const handleRating = (selectedRating) => {
    setRating(selectedRating);
  };
-
 
   if (postsLoading || userLoading) {
     return <p>Loading...</p>;
@@ -87,7 +48,7 @@ function Profile() {
           <div className="profile-avatar"></div>
           <div className="profile-info">
             <h2 className="name">{userData.userById.businessName}</h2>
-            <p className="location">{userData.userById.location}</p>
+            <p className="location">{userData.userById.city}, {userData.userById.state}</p>
           </div>
         </div>
         <div className="description">{userData.userById.description}</div>
@@ -121,6 +82,7 @@ function Profile() {
             <div className="post-image"></div>
             <h4 className="post-title">{post.title}</h4>
             <p className="post-description">{post.description}</p>
+            <p className="post-description">{post.formattedPrice}</p>
             <button
               className="add-comment-button"
               onClick={() => setShowCommentForm(true)}
