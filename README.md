@@ -2,12 +2,14 @@
 
 ## Table of Contents
 [Description](#description)<br>
+[Installation](#installation)<br>
 [Usage](#usage)<br>
 [Technologies Used](#technologies-used)<br>
 [Credits](#credits)<br>
 [License](#license)<br>
 [Link to deployed application](#link-to-deployed-application)<br>
-[Website preview](#website-preview)
+[Website preview](#website-preview)<br>
+[Questions](#questions)
 
 ## Description
 Local harvest is a platform that connects local farmers and consumers. Our primary goal is to facilitate the purchase of fresh, locally-grown produce, promoting healthier and sustainable food choices. Additionally, our platform provides consumers with the opportunity to contribute further by making donations to support local farmers.<br>
@@ -94,3 +96,5 @@ mcquo11@umn.edu<br>
 souzabeatriz17@gmail.com<br>
 rossboughman@gmail.com<br>
 brandonrwing98@gmail.com
+<br><br>
+[Back to top](#local-harvest-)
