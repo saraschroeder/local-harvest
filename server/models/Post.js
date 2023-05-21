@@ -33,7 +33,7 @@ const postSchema = new Schema(
     toJSON: {
       virtuals: true,
     },
-  }
+} 
 );
 
 // Virtual to calculate rate average
@@ -47,6 +47,11 @@ postSchema.virtual("rateAverage").get(function () {
   }, 0);
 
   return totalRate / this.reviews.length;
+});
+
+// Virtual to format the price with a dollar sign
+postSchema.virtual("formattedPrice").get(function () {
+  return `$${this.price}`;
 });
 
 const Post = model("Post", postSchema);

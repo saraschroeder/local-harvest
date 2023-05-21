@@ -79,7 +79,7 @@ console.log(postsByFarmer)
         <div className="profile-avatar"></div>
         <div className="profile-info">
           <h2 className="name">{meData.me.businessName}</h2>
-          <p className="location">{meData.me.location}</p>
+          <p className="location">{meData.me.city}, {meData.me.state}</p>
         </div>
       </div>
       <div className="description">{meData.me.description}</div>
@@ -96,6 +96,7 @@ console.log(postsByFarmer)
             <div className="post-image"></div>
             <h4 className="post-title">{post.title}</h4>
             <p className="post-description">{post.description}</p>
+            <p className="post-description">{post.formattedPrice}</p>
             <button className="add-comment-button">Add Comment</button>
             <button className="add-comment-button">Edit</button>
             <button className="add-comment-button" onClick={() => handleDeletePost(post._id)}>Delete</button>

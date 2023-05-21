@@ -12,7 +12,8 @@ const typeDefs = gql`
     password: String!
     role: String!
     businessName: String
-    location: String
+    city: String
+    state: String
     description: String
     image: UserImage
     post: [Post]
@@ -28,7 +29,8 @@ const typeDefs = gql`
     password: String!
     role: String!
     businessName: String
-    location: String
+    city: String
+    state: String
     description: String
   }
 
@@ -61,6 +63,7 @@ const typeDefs = gql`
     price: String!
     reviews: [Review]
     rateAverage: Float
+    formattedPrice: String
   }
 
   input PostInput {

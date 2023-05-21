@@ -4,7 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/css/signup.css";
 import { useMutation } from "@apollo/client";
 import { CREATE_USER } from "../utils/mutations";
-import Auth from '../utils/auth';
+import Auth from "../utils/auth";
+import { states } from "../utils/helpers";
 
 const Signup = () => {
   // Set initial role state
@@ -16,12 +17,13 @@ const Signup = () => {
     password: "",
     role: "",
     businessName: "",
-    location: "",
-    description: ""
+    city: "",
+    state: "",
+    description: "",
   });
 
-// Using mutation to create new user
-  const [createUser, {error}] = useMutation(CREATE_USER);
+  // Using mutation to create new user
+  const [createUser] = useMutation(CREATE_USER);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -34,13 +36,12 @@ const Signup = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(formState);
-   
+
     try {
       const { data } = await createUser({
         variables: { input: formState },
       });
-console.log(data)
-console.log(error);
+
       Auth.login(data.createUser.token);
     } catch (e) {
       console.error(e);
@@ -51,9 +52,10 @@ console.log(error);
       password: "",
       role: "",
       businessName: "",
-      location: "",
-      description: ""
-  })
+      city: "",
+      state: "",
+      description: "",
+    });
   };
 
   return (
@@ -85,6 +87,13 @@ console.log(error);
                     onChange={handleChange}
                     className="form-control"
                     required
+                    pattern="^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$" 
+                        onInvalid={(e) =>
+                          e.target.setCustomValidity(
+                            "Please use this format: 'email@example.com'"
+                          )
+                        }
+                        onInput={(e) => e.target.setCustomValidity("")}
                   />
                 </div>
                 <div className="form-group mt-3">
@@ -128,15 +137,39 @@ console.log(error);
                       />
                     </div>
                     <div className="form-group">
-                      <label>Location</label>
+                      <label>City</label>
                       <input
                         type="text"
-                        name="location"
-                        value={formState.location}
+                        name="city"
+                        value={formState.city}
                         onChange={handleChange}
                         className="form-control"
                         required
+                        pattern="^[A-Za-z\s]+" 
+                        onInvalid={(e) =>
+                          e.target.setCustomValidity(
+                            "Please enter a valid city name"
+                          )
+                        }
+                        onInput={(e) => e.target.setCustomValidity("")}
                       />
+                    </div>
+                    <div className="form-group">
+                      <label>State</label>
+                      <select
+                        name="state"
+                        value={formState.state}
+                        onChange={handleChange}
+                        className="form-control"
+                        required
+                      >
+                      <option value="">Select a State</option>
+                        {states.map((state) => (
+                          <option key={state.abbr} value={state.name}>
+                            {state.name}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                     <div className="form-group mt-3">
                       <label>Description</label>
@@ -151,7 +184,7 @@ console.log(error);
                     </div>
                   </div>
                 )}
-                {userRole === "Consumer" && (<></>)}
+                {userRole === "Consumer" && <></>}
                 <button type="submit" className="btn btn-custom mt-4 w-100">
                   Signup
                 </button>
@@ -170,6 +203,6 @@ console.log(error);
       </div>
     </div>
   );
-}
+};
 
 export default Signup;
