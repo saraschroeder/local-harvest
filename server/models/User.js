@@ -24,7 +24,10 @@ const userSchema = new Schema({
   businessName: {
     type: String,
   },
-  location: {
+  city: {
+    type: String,
+  },
+  state: {
     type: String,
   },
   description: {
