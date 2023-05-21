@@ -51,6 +51,7 @@ export const CREATE_POST = gql`
       image
       description
       price
+      formattedPrice
       reviews {
         _id
         userId
