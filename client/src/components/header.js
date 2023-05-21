@@ -14,7 +14,10 @@ function Header() {
     setIsLoggedIn(false);
   };
 
-  const userProfile = Auth.getProfile().data;
+  let userProfile;
+  if (isLoggedIn) {
+    userProfile = Auth.getProfile().data;
+  }
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
