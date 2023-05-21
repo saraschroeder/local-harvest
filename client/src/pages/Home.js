@@ -34,7 +34,7 @@ function Main() {
           transition={{ duration: 0.5, delay: index * 0.2 }}
         >
           <h2 className="name">{farmer.businessName}</h2>
-          <p className="location">{farmer.location}</p>
+          <p className="location">{farmer.city}, {farmer.state}</p>
           <p className="description">{farmer.description}</p>
           {/* <div className="rating">
             <span className="rating-text">Average Rating:</span>
