@@ -14,6 +14,8 @@ function Header() {
     setIsLoggedIn(false);
   };
 
+  const userProfile = Auth.getProfile().data;
+
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <div className="container">
@@ -33,11 +35,14 @@ function Header() {
             <div className="ml-lg-auto">
               {isLoggedIn ? (
                 <NavDropdown
-                  title={`${Auth.getProfile().data.userName}'s profile`}
+                  title={`${userProfile.userName}`}
                   id="basic-nav-dropdown"
                 >
-                  <NavDropdown.Item as={Link} to="/cart">
-                    Cart
+                  <NavDropdown.Item
+                    as={Link}
+                    to={`/profile/${userProfile._id}`}
+                  >
+                    Profile
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item onClick={handleLogout}>
