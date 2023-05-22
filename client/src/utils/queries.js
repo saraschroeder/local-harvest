@@ -25,10 +25,6 @@ export const GET_USERS = gql`
         formattedPrice
         reviews {
           _id
-          userId
-          postId
-          text
-          rate
         }
         rateAverage
       }
@@ -61,10 +57,6 @@ export const GET_USER_BY_ID = gql`
         formattedPrice
         reviews {
           _id
-          userId
-          postId
-          text
-          rate
         }
         rateAverage
       }
@@ -84,10 +76,6 @@ export const GET_POSTS = gql`
       formattedPrice
       reviews {
         _id
-        userId
-        postId
-        text
-        rate
       }
       rateAverage
     }

@@ -35,6 +35,7 @@ function Profile() {
  };
 
  const [createReview] = useMutation(CREATE_REVIEW)
+
  const handleCreateReview = async () => {
   const token = Auth.isLoggedIn() ? Auth.getToken() : null;
   if (!token) {
@@ -56,6 +57,9 @@ function Profile() {
     });
     console.log(data)
     //for testing
+    setReviewText("")
+    setRating(0)
+    setCommentFormVisible({})
   } catch (error) {
     console.error(error);
   }
