@@ -23,6 +23,7 @@ function Profile() {
     variables: { userId: farmerParam },
   });
 
+  const [commentFormVisible, setCommentFormVisible] = useState({});
   const [showCommentForm, setShowCommentForm] = useState(false);
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
@@ -120,7 +121,9 @@ const handleDeletePost = async (postId) => {
         <div className="profile-avatar"></div>
         <div className="profile-info">
           <h2 className="name">{userData.userById.businessName}</h2>
-          <p className="location">{userData.userById.city}, {userData.userById.state}</p>
+          <p className="location">
+            {userData.userById.city}, {userData.userById.state}
+          </p>
         </div>
       </div>
       <div className="description">{userData.userById.description}</div>
@@ -140,10 +143,13 @@ const handleDeletePost = async (postId) => {
             <p className="post-description">{post.formattedPrice}</p>
             <button
               className="add-comment-button"
-              onClick={() => {
-                setShowCommentForm(true);
-                setActivePostId(post._id);
-              }}
+              onClick={() =>
+              setShowCommentForm(true);
+                setCommentFormVisible((prevState) => ({
+                  ...prevState,
+                  [post._id]: !prevState[post._id],
+                }))
+              }
             >
               Add Comment
             </button>
@@ -153,10 +159,13 @@ const handleDeletePost = async (postId) => {
               // Show the delete button only to the post creator
               style={{ display: activeUserId === post.userId ? 'block' : 'none' }}
             >Delete
+
             </button>
-            {showCommentForm && (
+            {commentFormVisible[post._id] && (
               <div className="comment-form">
-                <div className="rating"> Rate: 
+                <div className="rating">
+                  {" "}
+                  Rate:
                   {Array.from({ length: 5 }, (_, index) => (
                     <FaStar
                       key={index}
@@ -174,6 +183,7 @@ const handleDeletePost = async (postId) => {
                   onChange={(e) => setReviewText(e.target.value)}
                   placeholder="Enter your comment..."
                 ></textarea>
+
                 <button
                   className="submit-comment-button"
                   onClick={handleCreateReview}
