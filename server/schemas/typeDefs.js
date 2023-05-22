@@ -62,6 +62,7 @@ const typeDefs = gql`
     description: String!
     price: String!
     reviews: [Review]
+    rating: [Float]
     rateAverage: Float
     formattedPrice: String
   }

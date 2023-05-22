@@ -49,6 +49,13 @@ const resolvers = {
     createReview: async (parent, { input }, context) => {
       if (context.user) {
         const newReview = await Review.create(input);
+        const postId = input.postId
+        // Saving reviewId in Post
+        await Post.findOneAndUpdate(
+          { _id: postId}, 
+          { $addToSet: { reviews: newReview._id, rating: newReview.rate}},
+          { new: true }
+        )
         return newReview;
       }
       throw new AuthenticationError("Something went wrong!");

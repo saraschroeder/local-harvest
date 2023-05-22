@@ -28,6 +28,9 @@ const postSchema = new Schema(
         ref: "Review",
       },
     ],
+    rating: [{
+      type: Number
+    }]
   },
   {
     toJSON: {
@@ -38,15 +41,15 @@ const postSchema = new Schema(
 
 // Virtual to calculate rate average
 postSchema.virtual("rateAverage").get(function () {
-  if (this.reviews.length === 0) {
+  if (this.rating.length === 0) {
     return 0;
   }
 
-  const totalRate = this.reviews.reduce((accumulator, review) => {
-    return accumulator + review.rate;
+  const totalRate = this.rating.reduce((accumulator, rate) => {
+    return accumulator + rate;
   }, 0);
 
-  return totalRate / this.reviews.length;
+  return totalRate / this.rating.length;
 });
 
 // Virtual to format the price with a dollar sign
