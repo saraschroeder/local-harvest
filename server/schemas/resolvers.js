@@ -74,12 +74,15 @@ const resolvers = {
     },
     deleteReview: async (parent, { reviewId }, context) => {
       if (context.user) {
-        const reviewToDelete = await Review.findOneAndDelete({
-          _id: reviewId,
-          user: context.user._id,
-        });
+        const reviewToDelete = await Review.findOneAndDelete(reviewId);
+        await Post.findOneAndUpdate(
+          { _id: reviewToDelete.postId}, 
+          { $pull: { reviews: reviewToDelete._id }},
+          { new: true }
+        )
         return reviewToDelete;
       }
+      throw new AuthenticationError("Something went wrong!");
     },
     createPost: async (parent, { postInput }, context) => {
       if (!context.user) {
