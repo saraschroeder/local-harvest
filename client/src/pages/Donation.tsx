@@ -9,13 +9,12 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import "../assets/css/donation.css";
 import { FaCreditCard } from "react-icons/fa";
 import CurrencyInput from "react-currency-input-field";
 
 const Donation: React.FC = () => {
-  const [amount, setAmount] = useState(0);
-  const [paymentIntent, setPaymentIntent] = useState(null);
+  const [amount, setAmount] = useState<string>(""); // Provide initial value as an empty string
+  const [paymentIntent, setPaymentIntent] = useState<any>(null); // Adjust the type of paymentIntent as necessary
   const stripe = useStripe();
   const elements = useElements();
 
@@ -24,15 +23,21 @@ const Donation: React.FC = () => {
   useEffect(() => {
     const fetchPaymentIntent = async () => {
       try {
+        const parsedAmount = Number(amount.replace(/[^0-9.-]+/g, ""));
+        if (parsedAmount < 1) {
+          // Handle invalid amount (less than 1)
+          return;
+        }
+  
         const { data } = await createPaymentIntent({
-          variables: { amount },
+          variables: { amount: parsedAmount },
         });
         setPaymentIntent(data.createPaymentIntent);
       } catch (e) {
         console.error("Error creating payment intent:", e);
       }
     };
-
+  
     fetchPaymentIntent();
   }, [amount, createPaymentIntent]);
 
@@ -65,20 +70,16 @@ const Donation: React.FC = () => {
           id="donation-amount"
           name="donation-amount"
           placeholder="Please enter a number"
-          defaultValue={50}
+          value={amount}
           decimalsLimit={2}
-          onValueChange={(value, name) => console.log(value, name)}
+          onValueChange={(value) => setAmount(value || "")} // Provide an empty string if value is undefined
         />
-        ;
         <div className="card-element-container">
           <CardElement />
         </div>
         <button className="btn btn-primary mt-3" onClick={handleDonate}>
           Donate <FaCreditCard />
         </button>
-        {error && (
-          <div className="my-3 p-3 bg-danger text-white">{error.message}</div>
-        )}
       </div>
     </div>
   );
