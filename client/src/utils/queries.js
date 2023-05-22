@@ -66,7 +66,7 @@ export const GET_USER_BY_ID = gql`
 
 // Query to fetch all posts
 export const GET_POSTS = gql`
-  query AllPosts {
+  query allPosts {
     allPosts {
       _id
       userId
@@ -76,11 +76,17 @@ export const GET_POSTS = gql`
       formattedPrice
       reviews {
         _id
+        userId
+        userName
+        postId
+        text
+        rate
       }
       rateAverage
     }
   }
 `;
+
 // Query to get logged farmer info
 export const GET_ME = gql`
   query me {

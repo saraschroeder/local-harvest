@@ -55,6 +55,7 @@ export const CREATE_POST = gql`
       reviews {
         _id
         userId
+        userName
         postId
         text
         rate
@@ -90,6 +91,7 @@ export const CREATE_REVIEW = gql`
     createReview(input: $input) {
       _id
       userId
+      userName
       postId
       text
       rate
@@ -102,6 +104,7 @@ export const UPDATE_REVIEW = gql`
     updateReview(reviewId: $reviewId, input: $input) {
       _id
       userId
+      userName
       postId
       text
       rate
