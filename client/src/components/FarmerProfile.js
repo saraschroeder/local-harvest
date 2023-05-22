@@ -100,9 +100,9 @@ const handleDeleteReview = async (reviewId) => {
   
   try {
     const { data } = await deleteReview({
-      variables: {
-        // reviewId: activeReviewId,
-      },
+      // variables: {
+      //   reviewId: activeReviewId,
+      // },
     });
     console.log(data);
   } catch (error) {

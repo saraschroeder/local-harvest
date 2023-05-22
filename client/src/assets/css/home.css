@@ -2,6 +2,7 @@
   width: 90%;
   margin: 0 auto;
   padding-top: 20px;
+  background-color: #fafaf8;
 }
 
 .search-container {
@@ -9,73 +10,76 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+
 }
 
 .search-container input {
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  margin-right: 10px;
+  transition: all 0.3s ease-in-out;
+   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
 }
 
+.search-container input:focus {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+.search-container input,
 .search-container select {
   padding: 8px;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid #183a1d;
+  margin-right: 10px;
 }
+
 
 .farmer-card {
-  background-color: #bcc7bc;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: rgba(163, 183, 154, 0.7); 
+  border: 1px solid rgba(255, 255, 255, 0.3); 
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); 
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px); 
   padding: 20px;
-  border-radius: 4px;
+  border-radius: 10px;
   width: 300px;
-  margin-bottom: 20px;
+  margin: 20px;
+  transition: transform .2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
 }
 
-.avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
+.farmer-card:hover {
+  transform: scale(1.02); 
 }
-
 .name {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
   margin-top: 10px;
+  color: #183a1d;
+  background: linear-gradient(45deg, #343a34, #5e615a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .location {
   margin-top: 5px;
   font-style: italic;
+  color: #0e0d0d;
+  margin-bottom: 10px;
 }
 
 .description {
   margin-top: 10px;
-}
-
-.rating {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-weight: bold;
-  color: #183a1d;
-  display: flex;
-  align-items: center;
-}
-
-.rating span {
-  margin-right: 5px;
+  font-size: 16px;
+  color: #333;
 }
 
 .view-posts-btn {
-  margin-top: 10px;
+  margin-top: auto; 
   border-radius: 0.5em;
   background-color: #f0a04b;
   color: #fff;
   border: none;
   padding: 8px 16px;
-  margin-top: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   text-decoration: none;
@@ -85,13 +89,9 @@
   background-color: #f6c453;
 }
 
-.star-icons {
-  color: #f0a04b;
-}
-
 .main-title {
   font-size: 2em;
-  color: #010801;
+  color: #183a1d;
   margin-bottom: 30px;
   text-align: center;
   display: flex;
@@ -103,7 +103,7 @@
 
 .icon {
   font-size: 1.3em;
-  color: #76b041;
+  color: #f0a04b;
 }
 
 .card-container {
@@ -123,3 +123,4 @@
 .main-title .icon:hover {
   transform: scale(1.2);
 }
+
