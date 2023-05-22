@@ -2,11 +2,15 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FaStar } from "react-icons/fa";
 import "../assets/css/profile.css";
-import { useParams} from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_POSTS, GET_USER_BY_ID, GET_ME } from "../utils/queries";
-import { CREATE_REVIEW, UPDATE_REVIEW, DELETE_REVIEW } from "../utils/mutations";
+import {
+  CREATE_REVIEW,
+  UPDATE_REVIEW,
+  DELETE_REVIEW,
+} from "../utils/mutations";
 import { DELETE_POST } from "../utils/mutations";
 import Auth from "../utils/auth";
 
@@ -15,7 +19,7 @@ function Profile() {
   const loggedInUserData = meData?.me || [];
   // Passing userId
   const activeUserId = loggedInUserData._id;
-  const activeUserName = loggedInUserData.userName
+  const activeUserName = loggedInUserData.userName;
   const { farmerId: farmerParam } = useParams();
   // Get all posts from all farmers
   const { loading: postsLoading, data: postData } = useQuery(GET_POSTS);
@@ -27,108 +31,106 @@ function Profile() {
   const [commentFormVisible, setCommentFormVisible] = useState({});
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
-  const [activePostId, setActivePostId] = useState('')
-  // const [activeReviewId, setActiveReviewId] = useState('')
-
+  const [activePostId, setActivePostId] = useState("");
+  const [activeReviewId, setActiveReviewId] = useState("");
 
   const handleRating = (selectedRating) => {
-   setRating(selectedRating);
- };
+    setRating(selectedRating);
+  };
 
- const [createReview] = useMutation(CREATE_REVIEW)
+  const [createReview] = useMutation(CREATE_REVIEW);
 
- const handleCreateReview = async () => {
-  const token = Auth.isLoggedIn() ? Auth.getToken() : null;
-  if (!token) {
-    return false;
-  }
-  
-  try {
-    const reviewInput = {
-      userName: activeUserName,
-      userId: activeUserId,
-      postId: activePostId,
-      text: reviewText,
-      rate: rating,
-    };
+  const handleCreateReview = async () => {
+    const token = Auth.isLoggedIn() ? Auth.getToken() : null;
+    if (!token) {
+      return false;
+    }
 
-    const { data } = await createReview({
-      variables: {
-        input: reviewInput,
-      },
-    });
-    console.log(data)
-    //for testing
-    setReviewText("")
-    setRating(0)
-    setCommentFormVisible({})
-  } catch (error) {
-    console.error(error);
-  }
-};
-const [updateReview] = useMutation(UPDATE_REVIEW);
-//this will be the function that will happen when the edit review button is clicked
-// const handleUpdateReview = async () => {
-//   const token = Auth.isLoggedIn() ? Auth.getToken() : null;
-//   if (!token) {
-//     return false;
-//   }
-//   try {
-//     const reviewInput = {
-//       text: reviewText,
-//       rate: rating,
-//     };
+    try {
+      const reviewInput = {
+        userId: activeUserId,
+        userName: activeUserName,
+        postId: activePostId,
+        text: reviewText,
+        rate: rating,
+      };
 
-//     const { data } = await updateReview({
-//       variables: {
-//         reviewId: activeReviewId,
-//         input: reviewInput,
-//       },
-//     });
-//     console.log(data);
-//     // for testing
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
+      const { data } = await createReview({
+        variables: {
+          input: reviewInput,
+        },
+      });
+      console.log(data);
+      //for testing
+      setReviewText("");
+      setRating(0);
+      setCommentFormVisible({});
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const [updateReview] = useMutation(UPDATE_REVIEW);
+  //this will be the function that will happen when the edit review button is clicked
+  // const handleUpdateReview = async () => {
+  //   const token = Auth.isLoggedIn() ? Auth.getToken() : null;
+  //   if (!token) {
+  //     return false;
+  //   }
+  //   try {
+  //     const reviewInput = {
+  //       text: reviewText,
+  //       rate: rating,
+  //     };
 
-const [deleteReview] = useMutation(DELETE_REVIEW, {
-  refetchQueries: [{ query: GET_POSTS }],
-});
+  //     const { data } = await updateReview({
+  //       variables: {
+  //         reviewId: activeReviewId,
+  //         input: reviewInput,
+  //       },
+  //     });
+  //     console.log(data);
+  //     // for testing
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
-const handleDeleteReview = async (reviewId) => {
-  
-  try {
-    const { data } = await deleteReview({
-      // variables: {
-      //   reviewId: activeReviewId,
-      // },
-    });
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-};
+  const [deleteReview] = useMutation(DELETE_REVIEW, {
+    refetchQueries: [{ query: GET_POSTS }],
+  });
 
- const [deletePost] = useMutation(DELETE_POST, {
-  // Reftching GET_POSTS after deleting a post (need this so we don't need to refresh page)
-  refetchQueries: [{ query: GET_POSTS }],
-});
+  const handleDeleteReview = async (activePostId) => {
+    try {
+      const { data } = await deleteReview({
+        variables: {
+          reviewId: activeReviewId,
+        },
+      });
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-// Function to delete post
-const handleDeletePost = async (postId) => {
-  const token = Auth.isLoggedIn() ? Auth.getToken() : null;
-  if (!token) {
-    return false;
-  }
-  try {
-    await deletePost({
-      variables: { postId },
-    });
-  } catch (err) {
-    console.error(err);
-  }
-};
+  const [deletePost] = useMutation(DELETE_POST, {
+    // Reftching GET_POSTS after deleting a post (need this so we don't need to refresh page)
+    refetchQueries: [{ query: GET_POSTS }],
+  });
+
+  // Function to delete post
+  const handleDeletePost = async (postId) => {
+    const token = Auth.isLoggedIn() ? Auth.getToken() : null;
+    if (!token) {
+      return false;
+    }
+    try {
+      await deletePost({
+        variables: { postId },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   if (postsLoading || userLoading || meLoading) {
     return <p>Loading...</p>;
@@ -153,7 +155,9 @@ const handleDeletePost = async (postId) => {
           <div className="profile-avatar"></div>
           <div className="profile-info">
             <h2 className="name">{userData.userById.businessName}</h2>
-            <p className="location">{userData.userById.city}, {userData.userById.state}</p>
+            <p className="location">
+              {userData.userById.city}, {userData.userById.state}
+            </p>
           </div>
         </div>
         <div className="description">{userData.userById.description}</div>
@@ -194,7 +198,7 @@ const handleDeletePost = async (postId) => {
             <button
               className="add-comment-button"
               onClick={() => {
-                setActivePostId(post._id)
+                setActivePostId(post._id);
                 setCommentFormVisible((prevState) => ({
                   ...prevState,
                   [post._id]: !prevState[post._id],
@@ -205,22 +209,13 @@ const handleDeletePost = async (postId) => {
             </button>
             <button
               className="add-comment-button"
-              onClick={() => {
-                setActivePostId(post._id)
-                setCommentFormVisible((prevState) => ({
-                  ...prevState,
-                  [post._id]: !prevState[post._id],
-                }));
-              }}
-            >
-              View Comments
-            </button>
-            <button
-              className="add-comment-button"
               onClick={() => handleDeletePost(post._id)}
               // Show the delete button only to the post creator
-              style={{ display: activeUserId === post.userId ? 'block' : 'none' }}
-            >Delete
+              style={{
+                display: activeUserId === post.userId ? "block" : "none",
+              }}
+            >
+              Delete
             </button>
             {commentFormVisible[post._id] && (
               <div className="comment-form">
@@ -252,20 +247,40 @@ const handleDeletePost = async (postId) => {
                 </button>
               </div>
             )}
-            {/* <div className="comments-section">
-              <h5>View Comments</h5>
-              {post.reviews.map((review) => (
-                <div className="comment" key={review._id}>
-                  <p className="comment-author">{review.user}</p>
-                  <p className="comment-text">{review.text}</p>
-                  <FaStar
-                  className={`star-icon ${
-                        rating >= index + 1 ? "filled" : ""
-                      }`}
-                    />
-                </div>
-              ))}
-            </div> */}
+            {
+              <div className="comments-section">
+                <h5>Comments</h5>
+                {post.reviews.map((review) => (
+                  <div className="comment-card" key={review._id}>
+                    <div className="comment-content">
+                      <p className="comment-text">{review.text}</p>
+                      <p className="comment-author">- {review.userName}</p>
+                    </div>
+                    <div className="comment-rating">
+                      {Array.from({ length: 5 }, (_, index) => (
+                        <FaStar
+                          key={index}
+                          className={`star-icon ${
+                            review.rate >= index + 1 ? "filled" : ""
+                          }`}
+                        />
+                      ))}
+                    </div>
+                    {activeUserId === review.userId && (
+                      <button
+                        className="add-comment-button"
+                        onClick={() => {
+                          setActiveReviewId(review._id);
+                          handleDeleteReview(review._id);
+                        }}
+                      >
+                        Delete Comment
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+            }
           </motion.div>
         ))}
       </div>
