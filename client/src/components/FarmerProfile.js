@@ -22,8 +22,7 @@ function Profile() {
   const { loading: userLoading, data: userData } = useQuery(GET_USER_BY_ID, {
     variables: { userId: farmerParam },
   });
-
-  const [showCommentForm, setShowCommentForm] = useState(false);
+  const [commentFormVisible, setCommentFormVisible] = useState({});
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
   const [activePostId, setActivePostId] = useState('')
@@ -142,7 +141,10 @@ const handleDeletePost = async (postId) => {
               className="add-comment-button"
               onClick={() => {
                 setShowCommentForm(true);
-                setActivePostId(post._id);
+                setCommentFormVisible((prevState) => ({
+                  ...prevState,
+                  [post._id]: !prevState[post._id],
+                }));
               }}
             >
               Add Comment
