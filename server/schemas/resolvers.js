@@ -53,7 +53,7 @@ const resolvers = {
         // Saving reviewId in Post
         await Post.findOneAndUpdate(
           { _id: postId}, 
-          { $addToSet: { reviews: newReview._id}},
+          { $addToSet: { reviews: newReview._id, rating: newReview.rate}},
           { new: true }
         )
         return newReview;
