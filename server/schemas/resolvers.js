@@ -46,9 +46,9 @@ const resolvers = {
     deleteUser: async (_, { userId }) => {
       return User.findOneAndDelete({ _id: userId });
     },
-    createReview: async (parent, { reviewData }, context) => {
+    createReview: async (parent, { input }, context) => {
       if (context.user) {
-        const newReview = await Review.create(reviewData);
+        const newReview = await Review.create(input);
         return newReview;
       }
       throw new AuthenticationError("Something went wrong!");
