@@ -32,9 +32,7 @@ function Profile() {
   const handleRating = (selectedRating) => {
    setRating(selectedRating);
  };
- const handlePostId = (postId) => {
-  setActivePostId(postId);
-};
+
  const [createReview] = useMutation(CREATE_REVIEW)
  const handleCreateReview = async () => {
   const token = Auth.isLoggedIn() ? Auth.getToken() : null;
