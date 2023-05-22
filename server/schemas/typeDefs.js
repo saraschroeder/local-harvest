@@ -41,14 +41,16 @@ const typeDefs = gql`
 
   type Review {
     _id: ID!
-    userId: String!
+    userId: ID!
+    userName: String!
     postId: ID!
     text: String!
     rate: Int!
   }
 
   input ReviewInput {
-    userId: String!
+    userId: ID!
+    userName: String!
     postId: ID!
     text: String!
     rate: Int!

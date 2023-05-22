@@ -16,7 +16,7 @@ const resolvers = {
     allPosts: async () => {
       try {
         // Use the Post model to query for posts with matching userId
-        const posts = await Post.find();
+        const posts = await Post.find().populate('reviews');
     
         return posts;
       } catch (error) {

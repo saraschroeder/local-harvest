@@ -15,6 +15,7 @@ function Profile() {
   const loggedInUserData = meData?.me || [];
   // Passing userId
   const activeUserId = loggedInUserData._id;
+  const activeUserName = loggedInUserData.userName
   const { farmerId: farmerParam } = useParams();
   // Get all posts from all farmers
   const { loading: postsLoading, data: postData } = useQuery(GET_POSTS);
@@ -44,6 +45,7 @@ function Profile() {
   
   try {
     const reviewInput = {
+      userName: activeUserName,
       userId: activeUserId,
       postId: activePostId,
       text: reviewText,
@@ -99,7 +101,7 @@ const handleDeleteReview = async (reviewId) => {
   try {
     const { data } = await deleteReview({
       variables: {
-        reviewId: activeReviewId,
+        // reviewId: activeReviewId,
       },
     });
     console.log(data);
@@ -200,6 +202,18 @@ const handleDeletePost = async (postId) => {
               }}
             >
               Add Comment
+            </button>
+            <button
+              className="add-comment-button"
+              onClick={() => {
+                setActivePostId(post._id)
+                setCommentFormVisible((prevState) => ({
+                  ...prevState,
+                  [post._id]: !prevState[post._id],
+                }));
+              }}
+            >
+              View Comments
             </button>
             <button
               className="add-comment-button"
