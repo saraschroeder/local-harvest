@@ -27,6 +27,7 @@ function Profile() {
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
   const [activePostId, setActivePostId] = useState('')
+  // const [activeReviewId, setActiveReviewId] = useState('')
 
 
   const handleRating = (selectedRating) => {
@@ -39,6 +40,7 @@ function Profile() {
   if (!token) {
     return false;
   }
+  
   try {
     const reviewInput = {
       userId: activeUserId,
@@ -54,6 +56,49 @@ function Profile() {
     });
     console.log(data)
     //for testing
+  } catch (error) {
+    console.error(error);
+  }
+};
+const [updateReview] = useMutation(UPDATE_REVIEW);
+//this will be the function that will happen when the edit review button is clicked
+// const handleUpdateReview = async () => {
+//   const token = Auth.isLoggedIn() ? Auth.getToken() : null;
+//   if (!token) {
+//     return false;
+//   }
+//   try {
+//     const reviewInput = {
+//       text: reviewText,
+//       rate: rating,
+//     };
+
+//     const { data } = await updateReview({
+//       variables: {
+//         reviewId: activeReviewId,
+//         input: reviewInput,
+//       },
+//     });
+//     console.log(data);
+//     // for testing
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
+const [deleteReview] = useMutation(DELETE_REVIEW, {
+  refetchQueries: [{ query: GET_POSTS }],
+});
+
+const handleDeleteReview = async (reviewId) => {
+  
+  try {
+    const { data } = await deleteReview({
+      variables: {
+        reviewId: activeReviewId,
+      },
+    });
+    console.log(data);
   } catch (error) {
     console.error(error);
   }
@@ -191,10 +236,15 @@ const handleDeletePost = async (postId) => {
             )}
             {/* <div className="comments-section">
               <h5>View Comments</h5>
-              {post.comments.map((comment) => (
-                <div className="comment" key={comment.id}>
-                  <p className="comment-author">{comment.author}</p>
-                  <p className="comment-text">{comment.text}</p>
+              {post.reviews.map((review) => (
+                <div className="comment" key={review._id}>
+                  <p className="comment-author">{review.user}</p>
+                  <p className="comment-text">{review.text}</p>
+                  <FaStar
+                  className={`star-icon ${
+                        rating >= index + 1 ? "filled" : ""
+                      }`}
+                    />
                 </div>
               ))}
             </div> */}

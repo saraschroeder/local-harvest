@@ -98,8 +98,8 @@ export const CREATE_REVIEW = gql`
 `;
 //mutation to update a review
 export const UPDATE_REVIEW = gql`
-  mutation UpdateReview($reviewId: ID!) {
-    updateReview(reviewId: $reviewId) {
+  mutation UpdateReview($reviewId: ID!, $input: ReviewInput) {
+    updateReview(reviewId: $reviewId, input: $input) {
       _id
       userId
       postId
