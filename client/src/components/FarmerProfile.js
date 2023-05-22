@@ -22,6 +22,7 @@ function Profile() {
   const { loading: userLoading, data: userData } = useQuery(GET_USER_BY_ID, {
     variables: { userId: farmerParam },
   });
+
   const [commentFormVisible, setCommentFormVisible] = useState({});
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
@@ -119,7 +120,9 @@ const handleDeletePost = async (postId) => {
         <div className="profile-avatar"></div>
         <div className="profile-info">
           <h2 className="name">{userData.userById.businessName}</h2>
-          <p className="location">{userData.userById.city}, {userData.userById.state}</p>
+          <p className="location">
+            {userData.userById.city}, {userData.userById.state}
+          </p>
         </div>
       </div>
       <div className="description">{userData.userById.description}</div>
@@ -156,9 +159,11 @@ const handleDeletePost = async (postId) => {
               style={{ display: activeUserId === post.userId ? 'block' : 'none' }}
             >Delete
             </button>
-            {showCommentForm && (
+            {commentFormVisible[post._id] && (
               <div className="comment-form">
-                <div className="rating"> Rate: 
+                <div className="rating">
+                  {" "}
+                  Rate:
                   {Array.from({ length: 5 }, (_, index) => (
                     <FaStar
                       key={index}
