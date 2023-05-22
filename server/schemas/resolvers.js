@@ -72,10 +72,10 @@ const resolvers = {
       }
       throw new AuthenticationError("Something went wrong!");
     },
-    deleteReview: async (parent, { postId }, context) => {
+    deleteReview: async (parent, { reviewId }, context) => {
       if (context.user) {
         const reviewToDelete = await Review.findOneAndDelete({
-          postId,
+          _id: reviewId,
           user: context.user._id,
         });
         return reviewToDelete;
