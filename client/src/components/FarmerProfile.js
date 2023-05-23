@@ -32,7 +32,7 @@ function Profile() {
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
   const [activePostId, setActivePostId] = useState("");
-  const [activeReviewId, setActiveReviewId] = useState("");
+
 
   const handleRating = (selectedRating) => {
     setRating(selectedRating);
@@ -77,11 +77,11 @@ function Profile() {
     refetchQueries: [{ query: GET_POSTS }],
   });
 
-  const handleDeleteReview = async (activePostId) => {
+  const handleDeleteReview = async (reviewId) => {
     try {
       const { data } = await deleteReview({
         variables: {
-          reviewId: activeReviewId,
+          reviewId: reviewId,
         },
       });
       console.log(data);
@@ -255,7 +255,6 @@ function Profile() {
                       <button
                         className="add-comment-button"
                         onClick={() => {
-                          setActiveReviewId(review._id);
                           handleDeleteReview(review._id);
                         }}
                       >
