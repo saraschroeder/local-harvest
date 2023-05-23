@@ -59,6 +59,19 @@
   margin-top: 30px;
 }
 
+.no-posts {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 24px;
+  color: #131110;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: "Luckiest Guy", cursive;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .posts-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -70,6 +83,19 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 20px;
+  position: relative;
+}
+
+.delete-post {
+  position: absolute;
+  top: -1px;
+  right: 5px;
+  cursor: pointer;
+}
+
+.delete-post svg {
+  color: #f0a04b;
+  font-size: 20px;
 }
 
 .post-image {
@@ -78,6 +104,7 @@
   background-size: cover;
   background-position: center;
   margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .post-title {
@@ -152,12 +179,10 @@
 }
 
 .comment-card {
-  background-color: #fff;  
-  border: 1px solid #ccc; 
-  border-radius: 5px;      
-  margin-bottom: 10px;     
-  padding: 10px;           
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-
