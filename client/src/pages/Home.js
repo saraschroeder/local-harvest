@@ -29,7 +29,9 @@ function Main() {
           filtered.filter(
             (farmer) =>
               farmer.city &&
-              farmer.city.toLowerCase().includes(searchCity.trim().toLowerCase())
+              farmer.city
+                .toLowerCase()
+                .includes(searchCity.trim().toLowerCase())
           )
         );
       } else if (searchState) {
@@ -48,59 +50,71 @@ function Main() {
     return <p>Error :</p>;
   }
 
-return (
-  <div className="main-container">
-    <div className="main-title">
-      <span className="icon">
-        <FaSeedling />
-      </span>
-      <span>Find Farmers Near You! </span>
-      <span className="icon">
-        <FaSeedling />
-      </span>
-    </div>
-    <div className="search-container">
-      <input
-        type="text"
-        placeholder="Search City..."
-        value={searchCity || ""}
-        onChange={(event) => setSearchCity(event.target.value)}
-      />
-      <i className="fa fa-search"></i>
-      <select
-        value={searchState}
-        onChange={(event) => setSearchState(event.target.value)}
-      >
-        <option value="">Select State...</option>
-        {states.map((state, index) => (
-          <option key={index} value={state.name}>
-            {state.name}
-          </option>
-        ))}
-      </select>
-    </div>
-    <div className="card-container">
-      {filteredFarmers.map((farmer, index) => (
-        <motion.div
-          className="farmer-card"
-          key={farmer._id}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: index * 0.2 }}
+  return (
+    <div className="main-container">
+      <div className="main-title">
+        <span className="icon">
+          <FaSeedling />
+        </span>
+        <span>Find Farmers Near You! </span>
+        <span className="icon">
+          <FaSeedling />
+        </span>
+      </div>
+      <div className="search-container">
+        <select
+          value={searchState}
+          onChange={(event) => setSearchState(event.target.value)}
         >
-          <h2 className="name">{farmer.businessName}</h2>
-          <p className="location">
-            {farmer.city}, {farmer.state}
-          </p>
-          <p className="description">{farmer.description}</p>
-          <Link to={`/profile/${farmer._id}`} className="view-posts-btn">
-            View Posts
-          </Link>
-        </motion.div>
-      ))}
+          <option value="">Select State...</option>
+          {states.map((state, index) => {
+            // Filter the farmers based on the current state
+            const farmersInState = filteredFarmers.filter(
+              (farmer) => farmer.state === state.name
+            );
+
+            // Render the state as an option only if there are farmers in that state
+            if (farmersInState.length > 0) {
+              return (
+                <option key={index} value={state.name}>
+                  {state.name}
+                </option>
+              );
+            }
+
+            return null; // Don't render the option if there are no farmers in that state
+          })}
+        </select>
+        <input
+          type="text"
+          placeholder="Search City..."
+          value={searchCity || ""}
+          onChange={(event) => setSearchCity(event.target.value)}
+        />
+        <i className="fa fa-search"></i>
+      </div>
+      <div className="card-container">
+        {filteredFarmers.map((farmer, index) => (
+          <motion.div
+            className="farmer-card"
+            key={farmer._id}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+          >
+            <h2 className="name">{farmer.businessName}</h2>
+            <p className="location">
+              {farmer.city}, {farmer.state}
+            </p>
+            <p className="description">{farmer.description}</p>
+            <Link to={`/profile/${farmer._id}`} className="view-posts-btn">
+              View Posts
+            </Link>
+          </motion.div>
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
 }
 
 export default Main;
