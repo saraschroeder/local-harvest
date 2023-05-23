@@ -36,7 +36,7 @@ function Header() {
             <Nav.Link as={Link} to="/about">
               About Us
             </Nav.Link>
-            <Nav.Link as={Link} to="https://donate.stripe.com/test_6oE3ghcIw6zS1k4bII">
+            <Nav.Link as={Link} to="https://donate.stripe.com/test_6oE3ghcIw6zS1k4bII" target="_blank">
               Donate
             </Nav.Link>
             <div className="ml-lg-auto">

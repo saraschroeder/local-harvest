@@ -8,6 +8,7 @@ const Footer = () => {
             <p>©Your Farmers Marketplace</p>
         </div>
     </footer>
+
   );
 };
 
