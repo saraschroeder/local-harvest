@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { FaStar } from "react-icons/fa";
 import { Dropdown } from "react-bootstrap";
@@ -8,12 +7,7 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_POSTS, GET_USER_BY_ID, GET_ME } from "../utils/queries";
-import {
-  CREATE_REVIEW,
-  UPDATE_REVIEW,
-  DELETE_REVIEW,
-} from "../utils/mutations";
-import { DELETE_POST } from "../utils/mutations";
+import {CREATE_REVIEW, DELETE_REVIEW, DELETE_POST } from "../utils/mutations";
 import Auth from "../utils/auth";
 
 function Profile() {
@@ -153,7 +147,6 @@ function Profile() {
       </div>
     );
   }
-
   // If there are posts by the selected farmer, show them on page
   return (
     <div className="profile-container">
@@ -169,7 +162,7 @@ function Profile() {
       <div className="description">{userData.userById.description}</div>
       <h3 className="posts-heading">Posts</h3>
       <div className="posts-container">
-        {postsByFarmer.map((post, index) => (
+        {postsByFarmer.reverse().map((post, index) => (
           <motion.div
             className="post-card"
             key={post._id}
