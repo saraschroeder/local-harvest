@@ -71,7 +71,7 @@ const resolvers = {
     },
     deleteReview: async (parent, { reviewId }, context) => {
       if (context.user) {
-        const reviewToDelete = await Review.findOneAndDelete(reviewId);
+        const reviewToDelete = await Review.findOneAndDelete({ _id: reviewId });
         await Post.findOneAndUpdate(
           { _id: reviewToDelete.postId}, 
           { $pull: { reviews: reviewToDelete._id }},
