@@ -55,12 +55,14 @@ function Header() {
                         Create Post
                       </NavDropdown.Item>
                     )}
+                    {userProfile.role === "Farmer" && (
                     <NavDropdown.Item
                       as={Link}
                       to={`/profile/${userProfile._id}`}
                     >
                       Profile
                     </NavDropdown.Item>
+                    )}
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={handleLogout}>
                       Logout
