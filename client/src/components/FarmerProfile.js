@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaStar } from "react-icons/fa";
+import { IoMdTrash } from "react-icons/io";
 import "../assets/css/profile.css";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
@@ -17,13 +18,10 @@ import Auth from "../utils/auth";
 function Profile() {
   const { loading: meLoading, data: meData } = useQuery(GET_ME);
   const loggedInUserData = meData?.me || [];
-  // Passing userId
   const activeUserId = loggedInUserData._id;
   const activeUserName = loggedInUserData.userName;
   const { farmerId: farmerParam } = useParams();
-  // Get all posts from all farmers
   const { loading: postsLoading, data: postData } = useQuery(GET_POSTS);
-  // Get user data for farmer that was selected
   const { loading: userLoading, data: userData } = useQuery(GET_USER_BY_ID, {
     variables: { userId: farmerParam },
   });
@@ -64,7 +62,6 @@ function Profile() {
         },
       });
       console.log(data);
-      //for testing
       setReviewText("");
       setRating(0);
       setCommentFormVisible({});
@@ -77,11 +74,11 @@ function Profile() {
     refetchQueries: [{ query: GET_POSTS }],
   });
 
-  const handleDeleteReview = async (activePostId) => {
+  const handleDeleteReview = async (reviewId) => {
     try {
       const { data } = await deleteReview({
         variables: {
-          reviewId: activeReviewId,
+          reviewId: reviewId,
         },
       });
       console.log(data);
@@ -113,7 +110,7 @@ function Profile() {
   if (postsLoading || userLoading || meLoading) {
     return <p>Loading...</p>;
   }
-  // If userId selected in not from a Farmer, return the below
+
   if (userData.userById.role !== "Farmer") {
     return (
       <h3>
@@ -121,6 +118,7 @@ function Profile() {
       </h3>
     );
   }
+
   // Filter all posts to only get the ones created by farmer that was selected
   const postsByFarmer = postData.allPosts.filter(
     (post) => post.userId === farmerParam
@@ -172,10 +170,17 @@ function Profile() {
             <div className="post-image"></div>
             <h4 className="post-title">{post.title}</h4>
             <p className="post-description">{post.description}</p>
-            <p className="post-description">{post.formattedPrice}</p>
+            {activeUserId === post.userId && (
+              <button
+                className="delete-post-button"
+                onClick={() => handleDeletePost(post._id)}
+                // Show the delete button only to the post creator
+              >
+                <IoMdTrash />
+              </button>
+            )}
             <button
               className="add-comment-button"
-              style={{ display: Auth.isLoggedIn() ? 'block' : 'none' }}
               onClick={() => {
                 setActivePostId(post._id);
                 setCommentFormVisible((prevState) => ({
@@ -186,20 +191,9 @@ function Profile() {
             >
               Add Comment
             </button>
-            <button
-              className="add-comment-button"
-              onClick={() => handleDeletePost(post._id)}
-              // Show the delete button only to the post creator
-              style={{
-                display: activeUserId === post.userId ? "block" : "none",
-              }}
-            >
-              Delete
-            </button>
             {commentFormVisible[post._id] && (
               <div className="comment-form">
                 <div className="rating">
-                  {" "}
                   Rate:
                   {Array.from({ length: 5 }, (_, index) => (
                     <FaStar
@@ -226,40 +220,25 @@ function Profile() {
                 </button>
               </div>
             )}
-            {
-              <div className="comments-section">
-                <h5>Comments</h5>
-                {post.reviews.map((review) => (
-                  <div className="comment-card" key={review._id}>
-                    <div className="comment-content">
-                      <p className="comment-text">{review.text}</p>
-                      <p className="comment-author">- {review.userName}</p>
-                    </div>
-                    <div className="comment-rating">
-                      {Array.from({ length: 5 }, (_, index) => (
-                        <FaStar
-                          key={index}
-                          className={`star-icon ${
-                            review.rate >= index + 1 ? "filled" : ""
-                          }`}
-                        />
-                      ))}
-                    </div>
-                    {activeUserId === review.userId && (
-                      <button
-                        className="add-comment-button"
-                        onClick={() => {
-                          setActiveReviewId(review._id);
-                          handleDeleteReview(review._id);
-                        }}
-                      >
-                        Delete Comment
-                      </button>
-                    )}
+            <div className="comments-section">
+              <h5>Comments</h5>
+              {post.reviews.map((review) => (
+                <div className="comment-card" key={review._id}>
+                  <div className="comment-content">
+                    <p className="comment-text">{review.text}</p>
+                    <p className="comment-author">- {review.userName}</p>
                   </div>
-                ))}
-              </div>
-            }
+                  {activeUserId === review.userId && (
+                    <button
+                      className="add-comment-button"
+                      onClick={() => handleDeleteReview(review._id)}
+                    >
+                      Delete Comment
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
           </motion.div>
         ))}
       </div>
