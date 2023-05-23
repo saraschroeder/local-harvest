@@ -28,11 +28,6 @@
   margin-left: auto;
 }
 
-.nav-links-right .nav-link {
-  margin-left: 1rem;
-}
-
-
 .navbar .nav-link:hover {
   color: #f6c453;
 }
@@ -50,5 +45,4 @@
 .navbar .logo:hover {
   transform: scale(1.1);
 }
-
 

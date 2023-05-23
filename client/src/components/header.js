@@ -17,6 +17,7 @@ function Header() {
   let userProfile;
   if (isLoggedIn) {
     userProfile = Auth.getProfile().data;
+    console.log(userProfile);
   }
 
   return (
@@ -35,25 +36,32 @@ function Header() {
             <Nav.Link as={Link} to="/about">
               About Us
             </Nav.Link>
-            <div className="ml-lg-auto">
+            <div className="ml-lg-auto nav-separator">
               {isLoggedIn ? (
-                <NavDropdown
-                  title={`${userProfile.userName}`}
-                  id="basic-nav-dropdown"
-                >
-                  <NavDropdown.Item
-                    as={Link}
-                    to={`/profile/${userProfile._id}`}
+                <React.Fragment>
+                  <NavDropdown
+                    title={`${userProfile.userName}`}
+                    id="basic-nav-dropdown"
                   >
-                    Profile
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item onClick={handleLogout}>
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
+                    {userProfile.role === "Farmer" && (
+                      <NavDropdown.Item as={Link} to="/create-post">
+                        Create Post
+                      </NavDropdown.Item>
+                    )}
+                    <NavDropdown.Item
+                      as={Link}
+                      to={`/profile/${userProfile._id}`}
+                    >
+                      Profile
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item onClick={handleLogout}>
+                      Logout
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </React.Fragment>
               ) : (
-                <Nav.Link as={Link} to="/login">
+                <Nav.Link as={Link} to="/login" className="nav-separator">
                   Login
                 </Nav.Link>
               )}
