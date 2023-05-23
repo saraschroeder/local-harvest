@@ -25,7 +25,7 @@ function Profile() {
   });
 
   const [commentFormVisible, setCommentFormVisible] = useState({});
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState("");
   const [reviewText, setReviewText] = useState("");
   const [activePostId, setActivePostId] = useState("");
 
@@ -44,7 +44,12 @@ function Profile() {
     if (!token) {
       return false;
     }
-
+    if(rating === "") {
+      alert("Don't forget to rate your review!");
+    }
+    if(reviewText === "") {
+      alert("Review cannot be blank");
+    }
     try {
       const reviewInput = {
         userId: activeUserId,
@@ -62,7 +67,7 @@ function Profile() {
       console.log(data);
       //for testing
       setReviewText("");
-      setRating(0);
+      setRating("");
       setCommentFormVisible({});
     } catch (error) {
       console.error(error);
@@ -205,7 +210,7 @@ function Profile() {
               <div className="comment-form">
                 <div className="rating">
                   {" "}
-                  Rate:
+                  Rate 
                   {Array.from({ length: 5 }, (_, index) => (
                     <FaStar
                       key={index}
