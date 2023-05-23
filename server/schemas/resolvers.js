@@ -1,9 +1,6 @@
 const { User, Review, Post } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
-const stripe = require("stripe")(
-  "sk_test_51N9BOWDpKmnLMg2OJUManAkWYJVsMJ8GPXH6NC6Iv3gGDoX49EnHLnTNy9pIyPNAQAHYROjB6OunybqaE5uVDNKO0019EaAf3A"
-);
 
 const resolvers = {
   Query: {
@@ -132,19 +129,6 @@ const resolvers = {
       // If password is correct, create signin token
       const token = signToken(user);
       return { token, user };
-    },
-    createPaymentIntent: async (parent, { amount }) => {
-      try {
-        const paymentIntent = await stripe.paymentIntents.create({
-          amount: amount * 100,
-          currency: "usd",
-        });
-        console.log(paymentIntent);
-        return paymentIntent;
-      } catch (error) {
-        console.error(error);
-        throw error;
-      }
     },
   },
 };
