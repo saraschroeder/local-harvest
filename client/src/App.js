@@ -12,13 +12,12 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Profile from "./components/FarmerProfile";
+import Profile from "./pages/FarmerProfile";
 import { setContext } from "@apollo/client/link/context";
 
 
 import "./App.css";
 import CreatePost from './pages/CreatePost';
-import ViewMyPosts from './pages/ViewMyPosts';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -53,7 +52,6 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/about" element={<About />} />
           <Route path="/create-post" element={<CreatePost />} />
-          <Route path="/view-my-posts" element={<ViewMyPosts />} />
         </Routes>
         <Footer />
       </Router>
