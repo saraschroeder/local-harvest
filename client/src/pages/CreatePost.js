@@ -67,7 +67,7 @@ function CreatePost() {
       });
       console.log(data);
       // Redirect to the created post page
-      navigate(`/view-my-posts`);
+      navigate(`/profile/${userData._id}`);
     } catch (e) {
       console.error(e);
     }

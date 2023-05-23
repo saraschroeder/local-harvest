@@ -13,21 +13,20 @@ const resolvers = {
     allPosts: async () => {
       try {
         // Use the Post model to query for posts with matching userId
-        const posts = await Post.find().populate('reviews');
-    
+        const posts = await Post.find().populate("reviews");
+
         return posts;
       } catch (error) {
-        throw new Error('Failed to fetch posts by farmer');
+        throw new Error("Failed to fetch posts by farmer");
       }
     },
     me: async (parent, args, context) => {
-
       if (context.user) {
-          return User.findOne({ _id: context.user._id });
+        return User.findOne({ _id: context.user._id });
       }
       // Throw error if no user is found
       throw new AuthenticationError("Cannot find a user with this id!");
-  }
+    },
   },
   Mutation: {
     createUser: async (_, { input }) => {
@@ -36,7 +35,6 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-
     updateUser: async (_, { userId, ...updateData }) => {
       return User.findOneAndUpdate({ _id: userId }, updateData, { new: true });
     },
@@ -46,18 +44,17 @@ const resolvers = {
     createReview: async (parent, { input }, context) => {
       if (context.user) {
         const newReview = await Review.create(input);
-        const postId = input.postId
+        const postId = input.postId;
         // Saving reviewId in Post
         await Post.findOneAndUpdate(
-          { _id: postId}, 
-          { $addToSet: { reviews: newReview._id, rating: newReview.rate}},
+          { _id: postId },
+          { $addToSet: { reviews: newReview._id, rating: newReview.rate } },
           { new: true }
-        )
+        );
         return newReview;
       }
       throw new AuthenticationError("Something went wrong!");
     },
-
     updateReview: async (parent, { reviewData }, context) => {
       if (context.user) {
         const updatedReview = await Review.findOneAndUpdate(
@@ -73,10 +70,10 @@ const resolvers = {
       if (context.user) {
         const reviewToDelete = await Review.findOneAndDelete({ _id: reviewId });
         await Post.findOneAndUpdate(
-          { _id: reviewToDelete.postId}, 
-          { $pull: { reviews: reviewToDelete._id }},
+          { _id: reviewToDelete.postId },
+          { $pull: { reviews: reviewToDelete._id } },
           { new: true }
-        )
+        );
         return reviewToDelete;
       }
       throw new AuthenticationError("Something went wrong!");
@@ -85,15 +82,16 @@ const resolvers = {
       if (!context.user) {
         throw new AuthenticationError("You need to be logged in to add posts");
       }
-      if(context.user.role !== "Farmer") {
-        throw new AuthenticationError("You need to be logged in as a Farmer to add posts");
+      if (context.user.role !== "Farmer") {
+        throw new AuthenticationError(
+          "You need to be logged in as a Farmer to add posts"
+        );
       }
       const userId = context.user._id;
       const newPost = await Post.create({
         ...postInput,
-        userId
+        userId,
       });
-    
       if (!newPost) {
         throw new AuthenticationError("Couldn't create new post!");
       }
@@ -111,11 +109,12 @@ const resolvers = {
       return updatedPost;
     },
     deletePost: async (parent, { postId }, context) => {
-      return await Post.findOneAndDelete(
+      const postToDelete =  await Post.findOneAndDelete(
         { _id: postId },
-        { new: true }
-      );
-
+        { new: true });
+        // Delete reviews from db if post is deleted
+        await Review.deleteMany({ postId }, { new: true })
+        return postToDelete
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
