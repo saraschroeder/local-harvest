@@ -38,14 +38,28 @@ const Signup = () => {
     console.log(formState);
 
     try {
-      const { data } = await createUser({
-        variables: { input: formState },
-      });
+      if (Role === "Consumer") {
+        const { data } = await createUser({
+          variables: {
+            input: {
+              ...formState,
+              ...{ businessName: "", city: "", state: "", description: "" },
+            },
+          },
+        });
 
-      Auth.login(data.createUser.token);
+        Auth.login(data.createUser.token);
+      } else if (Role === "Farmer") {
+        const { data } = await createUser({
+          variables: { input: formState },
+        });
+
+        Auth.login(data.createUser.token);
+      }
     } catch (e) {
       console.error(e);
     }
+
     setFormState({
       email: "",
       userName: "",
@@ -87,13 +101,13 @@ const Signup = () => {
                     onChange={handleChange}
                     className="form-control"
                     required
-                    pattern="^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$" 
-                        onInvalid={(e) =>
-                          e.target.setCustomValidity(
-                            "Please use this format: 'email@example.com'"
-                          )
-                        }
-                        onInput={(e) => e.target.setCustomValidity("")}
+                    pattern="^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$"
+                    onInvalid={(e) =>
+                      e.target.setCustomValidity(
+                        "Please use this format: 'email@example.com'"
+                      )
+                    }
+                    onInput={(e) => e.target.setCustomValidity("")}
                   />
                 </div>
                 <div className="form-group mt-3">
@@ -145,7 +159,7 @@ const Signup = () => {
                         onChange={handleChange}
                         className="form-control"
                         required
-                        pattern="^[A-Za-z\s]+" 
+                        pattern="^[A-Za-z\s]+"
                         onInvalid={(e) =>
                           e.target.setCustomValidity(
                             "Please enter a valid city name"
@@ -163,7 +177,7 @@ const Signup = () => {
                         className="form-control"
                         required
                       >
-                      <option value="">Select a State</option>
+                        <option value="">Select a State</option>
                         {states.map((state) => (
                           <option key={state.abbr} value={state.name}>
                             {state.name}
