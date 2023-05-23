@@ -14,6 +14,11 @@
   display: block;
 }
 
+.form-group {
+  margin: 10px 0;  
+}
+
+
 .custom-select-role {
  margin-bottom: 5px;
 }

@@ -37,6 +37,12 @@
   margin-top: 30px;
 }
 
+.posts-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 20px;
+}
+
 .post-card {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -66,12 +72,10 @@
   color: gold;
 }
 
-
 .star-icon.selected,
 .star-icon.selected ~ .star-icon {
   color: #f0a04b;
 }
-
 
 .post-description {
   color: #888;
