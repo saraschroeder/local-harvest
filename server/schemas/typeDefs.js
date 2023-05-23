@@ -100,7 +100,6 @@ const typeDefs = gql`
     updatePost(postId: ID!, post: PostInput!): Post
     deletePost(postId: ID!): Post
     login(email:String!, password: String!): Auth
-    createPaymentIntent(amount: Int!): PaymentIntent!
   }
 `;
 
