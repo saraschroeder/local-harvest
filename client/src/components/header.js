@@ -36,7 +36,10 @@ function Header() {
             <Nav.Link as={Link} to="/about">
               About Us
             </Nav.Link>
-            <Nav.Link as={Link} to="https://donate.stripe.com/test_6oE3ghcIw6zS1k4bII" target="_blank">
+            <Nav.Link
+              href="https://donate.stripe.com/test_6oE3ghcIw6zS1k4bII"
+              target="_blank"
+            >
               Donate
             </Nav.Link>
             <div className="ml-lg-auto">
@@ -45,6 +48,7 @@ function Header() {
                   <NavDropdown
                     title={`${userProfile.userName}`}
                     id="basic-nav-dropdown"
+                    className="header-dropdown"
                   >
                     {userProfile.role === "Farmer" && (
                       <NavDropdown.Item as={Link} to="/create-post">

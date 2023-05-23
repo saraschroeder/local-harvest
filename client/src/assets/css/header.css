@@ -46,3 +46,33 @@
   transform: scale(1.1);
 }
 
+.nav-item {
+  position: relative;
+}
+
+.dropdown-toggle::after {
+  content: "";
+  position: absolute;
+  top: 40%;
+  right: -5px;
+  transform: translateY(-50%);
+  border: solid #f0a04b;
+  border-width: 0 1px 1px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+}
+
+.dropdown-toggle[aria-expanded="true"]::after {
+  transform: rotate(-135deg);
+}
+
+.dropdown-menu {
+  margin-top: 0;
+}
+
+.dropdown-menu.show {
+  margin-top: 0.5rem;
+}
+
