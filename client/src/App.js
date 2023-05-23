@@ -46,12 +46,12 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
           <Route path="/profile/:farmerId" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/about" element={<About />} />
           <Route path="/create-post" element={<CreatePost />} />
+          <Route path="*" element={<Home />} />
         </Routes>
         <Footer />
       </Router>
