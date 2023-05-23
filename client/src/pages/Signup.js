@@ -22,6 +22,15 @@ const Signup = () => {
     description: "",
   });
 
+  const [selectedAvatar, setSelectedAvatar] = useState("");
+  const [showAvatarSelection, setShowAvatarSelection] = useState(false);
+
+  const handleAvatarSelect = (avatar) => {
+    setSelectedAvatar(avatar);
+    setShowAvatarSelection(false);
+    console.log(avatar);
+  };
+
   // Using mutation to create new user
   const [createUser] = useMutation(CREATE_USER);
 
@@ -44,6 +53,7 @@ const Signup = () => {
             input: {
               ...formState,
               ...{ businessName: "", city: "", state: "", description: "" },
+              image: selectedAvatar,
             },
           },
         });
@@ -51,7 +61,7 @@ const Signup = () => {
         Auth.login(data.createUser.token);
       } else if (userRole === "Farmer") {
         const { data } = await createUser({
-          variables: { input: formState },
+          variables: { input: { ...formState, image: selectedAvatar } },
         });
 
         Auth.login(data.createUser.token);
@@ -72,6 +82,10 @@ const Signup = () => {
     });
   };
 
+  const toggleAvatarSelection = () => {
+    setShowAvatarSelection(!showAvatarSelection);
+  };
+
   return (
     <div className="container mt-5 signup-page">
       <div className="row justify-content-center">
@@ -82,7 +96,6 @@ const Signup = () => {
               <form onSubmit={handleFormSubmit}>
                 <div className="form-group">
                   <label>Username</label>
-
                   <input
                     type="text"
                     name="userName"
@@ -137,6 +150,36 @@ const Signup = () => {
                     <option value="Farmer">Farmer</option>
                   </select>
                 </div>
+                <div className="form-group mt-3">
+                  <button
+                    type="button"
+                    className="btn btn-custom"
+                    onClick={toggleAvatarSelection}
+                  >
+                    Choose an Avatar
+                  </button>
+                </div>
+                {showAvatarSelection && (
+                  <div className="avatar-selection-box">
+                    <h5>Select an Avatar:</h5>
+                    <div className="avatar-images">
+                      {Array.from({ length: 12 }, (_, index) => {
+                        const avatarNumber = index + 1;
+                        const avatarPath = require(`../assets/images/avatars/av${avatarNumber}.png`);
+
+                        return (
+                          <img
+                            key={avatarNumber}
+                            src={avatarPath}
+                            alt={`Avatar ${avatarNumber}`}
+                            onClick={() => handleAvatarSelect(avatarPath)}
+                          />
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
                 {userRole === "Farmer" && (
                   <div>
                     <div className="form-group">

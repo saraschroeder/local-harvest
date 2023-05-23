@@ -33,7 +33,8 @@ const userSchema = new Schema({
   description: {
     type: String,
   },
-  image: { data: Buffer, contentType: String }, // Image field
+  image: {type: String 
+  },
   post: [{
     type: Schema.Types.ObjectId,
     ref: 'Post'

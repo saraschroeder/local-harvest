@@ -9,6 +9,7 @@ export const CREATE_USER = gql`
         email
         userName
         role
+        image
       }
     }
   }
@@ -36,6 +37,7 @@ export const DELETE_USER = gql`
         email
         userName
         role
+        image
       }
     }
   }
