@@ -38,7 +38,7 @@ const Signup = () => {
     console.log(formState);
 
     try {
-      if (Role === "Consumer") {
+      if (userRole === "Consumer") {
         const { data } = await createUser({
           variables: {
             input: {
@@ -49,7 +49,7 @@ const Signup = () => {
         });
 
         Auth.login(data.createUser.token);
-      } else if (Role === "Farmer") {
+      } else if (userRole === "Farmer") {
         const { data } = await createUser({
           variables: { input: formState },
         });
