@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_ME } from "../utils/queries";
@@ -7,6 +8,7 @@ import { GET_POSTS } from "../utils/queries";
 
 function CreatePost() {
   // Set initial form state
+  const navigate = useNavigate();
   const [formState, setFormState] = useState({
     title: "",
     image: "",
@@ -62,6 +64,8 @@ function CreatePost() {
         variables: { postInput: formState },
       });
       console.log(data);
+      // Redirect to the created post page
+      navigate(`/view-my-posts`);
     } catch (e) {
       console.error(e);
     }
