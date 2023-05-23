@@ -48,30 +48,15 @@ function ViewMyPosts() {
       console.error(err);
     }
   };
+
+   // Variable to hold required image
+   const getImagePath = (image) => {
+    return require(`../assets/images/${image}.jpg`);
+    
+  };
+  
   // Filter all posts to only get the ones created by farmer that was selected
   const postsByFarmer = postData.allPosts.filter((post) => post.userId === userId);
-
-  //   const handleUpdatePost = async(postId, post) => {
-  //     const token = Auth.loggedIn() ? Auth.getToken() : null;
-  //     if (!token) {
-  //       return false;
-  //     }
-
-  //     try {
-  //         await updatePost({
-  //             variables: {
-  //                 ...post,
-  //                 postId
-  //             }
-  //         })
-  //     }catch (err) {
-  //         console.error(err);
-  //       }
-  //   }
-console.log(userData)
-console.log(postData)
-console.log(postsByFarmer)
-
 
   return (
     <div className="profile-container">
@@ -93,7 +78,7 @@ console.log(postsByFarmer)
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
           >
-            <div className="post-image"></div>
+            <img src={getImagePath(post.image)} alt= "product category" className="post-image" />
             <h4 className="post-title">{post.title}</h4>
             <p className="post-description">{post.description}</p>
             <p className="post-description">{post.formattedPrice}</p>
