@@ -12,10 +12,7 @@ export const GET_USERS = gql`
       city
       state
       description
-      image {
-        data
-        contentType
-      }
+      image
       post {
         _id
         userId
@@ -44,10 +41,7 @@ export const GET_USER_BY_ID = gql`
       city
       state
       description
-      image {
-        data
-        contentType
-      }
+      image
       post {
         _id
         userId
@@ -99,10 +93,7 @@ export const GET_ME = gql`
       city
       state
       description
-      image {
-        data
-        contentType
-      }
+      image
     }
   }
 `;

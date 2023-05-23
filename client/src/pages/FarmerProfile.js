@@ -127,7 +127,7 @@ function Profile() {
     return (
       <div className="profile-container">
         <div className="profile-header">
-          <div className="profile-avatar"></div>
+        <img className="profile-avatar" src={userData.userById.image} alt="avatar"></img>
           <div className="profile-info">
             <h2 className="name">{userData.userById.businessName}</h2>
             <p className="location">
@@ -144,7 +144,7 @@ function Profile() {
   return (
     <div className="profile-container">
       <div className="profile-header">
-        <div className="profile-avatar"></div>
+        <img className="profile-avatar" src={userData.userById.image} alt="avatar"></img>
         <div className="profile-info">
           <h2 className="name">{userData.userById.businessName}</h2>
           <p className="location">

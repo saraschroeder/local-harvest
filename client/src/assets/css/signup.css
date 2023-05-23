@@ -43,3 +43,20 @@
 .login-link:hover {
   color: #b6c48e; 
 }
+
+.avatar-selection-box {
+  margin-top: 10px;
+}
+
+.avatar-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.avatar-images img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  cursor: pointer;
+}

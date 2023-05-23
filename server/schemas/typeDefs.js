@@ -15,12 +15,8 @@ const typeDefs = gql`
     city: String
     state: String
     description: String
-    image: UserImage
+    image: String
     post: [Post]
-  }
-  type UserImage {
-    data: String
-    contentType: String
   }
 
   input CreateUserInput {
@@ -32,11 +28,7 @@ const typeDefs = gql`
     city: String
     state: String
     description: String
-  }
-
-  input UserImageInput {
-    data: String
-    contentType: String
+    image: String
   }
 
   type Review {
