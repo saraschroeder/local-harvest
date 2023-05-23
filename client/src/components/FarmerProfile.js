@@ -1,6 +1,8 @@
-import React from "react";
+
 import { motion } from "framer-motion";
 import { FaStar } from "react-icons/fa";
+import { Dropdown } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/css/profile.css";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
@@ -175,13 +177,17 @@ function Profile() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
           >
-            <img src={getImagePath(post.image)} alt= "product category" className="post-image" />
+            <img
+              src={getImagePath(post.image)}
+              alt="product category"
+              className="post-image"
+            />
             <h4 className="post-title">{post.title}</h4>
             <p className="post-description">{post.description}</p>
             <p className="post-description">{post.formattedPrice}</p>
             <button
               className="add-comment-button"
-              style={{ display: Auth.isLoggedIn() ? 'block' : 'none' }}
+              style={{ display: Auth.isLoggedIn() ? "block" : "none" }}
               onClick={() => {
                 setActivePostId(post._id);
                 setCommentFormVisible((prevState) => ({
@@ -237,10 +243,6 @@ function Profile() {
                 <h5>Comments</h5>
                 {post.reviews.map((review) => (
                   <div className="comment-card" key={review._id}>
-                    <div className="comment-content">
-                      <p className="comment-text">{review.text}</p>
-                      <p className="comment-author">- {review.userName}</p>
-                    </div>
                     <div className="comment-rating">
                       {Array.from({ length: 5 }, (_, index) => (
                         <FaStar
@@ -251,15 +253,30 @@ function Profile() {
                         />
                       ))}
                     </div>
+                    <div className="comment-content">
+                      <p className="comment-text">{review.text}</p>
+                      <p className="comment-author">- {review.userName}</p>
+                    </div>
                     {activeUserId === review.userId && (
-                      <button
-                        className="add-comment-button"
-                        onClick={() => {
-                          handleDeleteReview(review._id);
-                        }}
-                      >
-                        Delete Comment
-                      </button>
+                      <Dropdown className="customDropdown">
+                        <Dropdown.Toggle
+                          variant=""
+                          id="dropdown-basic"
+                          className="custom-dropdown-toggle"
+                        >
+                          ...
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                          {activeUserId === review.userId && (
+                            <Dropdown.Item
+                              onClick={() => handleDeleteReview(review._id)}
+                            >
+                              Delete Comment
+                            </Dropdown.Item>
+                          )}
+                        </Dropdown.Menu>
+                      </Dropdown>
                     )}
                   </div>
                 ))}

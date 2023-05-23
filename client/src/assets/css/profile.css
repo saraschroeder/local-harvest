@@ -17,6 +17,28 @@
   margin-right: 20px;
 }
 
+.comment-card {
+  position: relative;
+}
+
+.customDropdown {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: transparent;
+  border: none;
+}
+
+.custom-dropdown-toggle {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+}
+
+.custom-dropdown-toggle::after {
+  display: none;
+}
+
 .name {
   font-size: 24px;
   font-weight: bold;
@@ -105,7 +127,8 @@
 }
 
 .comment-text {
-  color: #888;
+  color: #333030;
+  margin-top: 1rem;
 }
 
 .comment-input {
@@ -126,6 +149,15 @@
   border-radius: 4px;
   margin-top: 10px;
   cursor: pointer;
+}
+
+.comment-card {
+  background-color: #fff;  
+  border: 1px solid #ccc; 
+  border-radius: 5px;      
+  margin-bottom: 10px;     
+  padding: 10px;           
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  
 }
 
 
