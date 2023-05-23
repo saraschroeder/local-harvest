@@ -110,6 +110,12 @@ function Profile() {
     }
   };
 
+  // Variable to hold required image
+  const getImagePath = (image) => {
+    return require(`../assets/images/${image}.jpg`);
+    
+  };
+
   if (postsLoading || userLoading || meLoading) {
     return <p>Loading...</p>;
   }
@@ -169,7 +175,7 @@ function Profile() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
           >
-            <div className="post-image"></div>
+            <img src={getImagePath(post.image)} alt= "product category" className="post-image" />
             <h4 className="post-title">{post.title}</h4>
             <p className="post-description">{post.description}</p>
             <p className="post-description">{post.formattedPrice}</p>

@@ -15,7 +15,7 @@ function CreatePost() {
     description: "",
     price: "",
   });
-
+  
   const [productCategory, setProductCategory] = useState("");
 
   // Getting farmer info by user logged in
@@ -62,9 +62,8 @@ function CreatePost() {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      const imagePath = "./assets/images/${productType}.jpg"
       const { data } = await createPost({
-        variables: { postInput: { ...formState, image: imagePath} },
+        variables: { postInput: { ...formState, image: productCategory} },
       });
       console.log(data);
       // Redirect to the created post page
