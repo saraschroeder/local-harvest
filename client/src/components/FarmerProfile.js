@@ -38,7 +38,10 @@ function Profile() {
     setRating(selectedRating);
   };
 
-  const [createReview] = useMutation(CREATE_REVIEW);
+  const [createReview] = useMutation(CREATE_REVIEW, {
+    // Reftching GET_POSTS after deleting a post (need this so we don't need to refresh page)
+    refetchQueries: [{ query: GET_POSTS }],
+  });
 
   const handleCreateReview = async () => {
     const token = Auth.isLoggedIn() ? Auth.getToken() : null;
@@ -69,31 +72,6 @@ function Profile() {
       console.error(error);
     }
   };
-  const [updateReview] = useMutation(UPDATE_REVIEW);
-  //this will be the function that will happen when the edit review button is clicked
-  // const handleUpdateReview = async () => {
-  //   const token = Auth.isLoggedIn() ? Auth.getToken() : null;
-  //   if (!token) {
-  //     return false;
-  //   }
-  //   try {
-  //     const reviewInput = {
-  //       text: reviewText,
-  //       rate: rating,
-  //     };
-
-  //     const { data } = await updateReview({
-  //       variables: {
-  //         reviewId: activeReviewId,
-  //         input: reviewInput,
-  //       },
-  //     });
-  //     console.log(data);
-  //     // for testing
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   const [deleteReview] = useMutation(DELETE_REVIEW, {
     refetchQueries: [{ query: GET_POSTS }],
