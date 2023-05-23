@@ -15,6 +15,8 @@ function CreatePost() {
     description: "",
     price: "",
   });
+  
+  const [productCategory, setProductCategory] = useState("");
 
   // Getting farmer info by user logged in
   const { loading: meLoading, data: meData } = useQuery(GET_ME);
@@ -61,7 +63,7 @@ function CreatePost() {
     event.preventDefault();
     try {
       const { data } = await createPost({
-        variables: { postInput: formState },
+        variables: { postInput: { ...formState, image: productCategory} },
       });
       console.log(data);
       // Redirect to the created post page
@@ -97,15 +99,27 @@ function CreatePost() {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Image</label>
-                  <input
-                    type="text"
-                    name="image"
-                    value={formState.image}
-                    onChange={handleChange}
+                  <label>Category</label>
+                  <select
+                    name="productCategory"
+                    value={productCategory}
+                    onChange={(e) => {
+                      setProductCategory(e.target.value)
+                    }}
                     className="form-control"
                     required
-                  />
+                  >
+                    <option value="">Select Product Category</option>
+                    <option value="cheese">Cheese</option>
+                    <option value="eggs">Eggs</option>
+                    <option value="fruits">Fruits</option>
+                    <option value="honey">Honey</option>
+                    <option value="meat">Meat</option>
+                    <option value="milk">Milk</option>
+                    <option value="plants">Plants/Flowers</option>
+                    <option value="vegetables">Vegetables</option>
+                    <option value="other">Other</option>
+                  </select>
                 </div>
                 <div className="form-group mt-3">
                   <label>Description</label>
