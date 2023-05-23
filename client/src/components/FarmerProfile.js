@@ -175,7 +175,7 @@ function Profile() {
             <p className="post-description">{post.formattedPrice}</p>
             <button
               className="add-comment-button"
-              style={{ display: Auth.isLoggedIn() ? 'block' : 'none' }}
+              style={{ display: Auth.isLoggedIn()? 'block' : 'none' }}
               onClick={() => {
                 setActivePostId(post._id);
                 setCommentFormVisible((prevState) => ({
@@ -248,6 +248,7 @@ function Profile() {
                     {activeUserId === review.userId && (
                       <button
                         className="add-comment-button"
+                        style={{ display: Auth.isLoggedIn()&& activeUserId === post.userId ? 'block' : 'none' }}
                         onClick={() => {
                           setActiveReviewId(review._id);
                           handleDeleteReview(review._id);
