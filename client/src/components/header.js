@@ -35,6 +35,9 @@ function Header() {
             <Nav.Link as={Link} to="/about">
               About Us
             </Nav.Link>
+            <Nav.Link as={Link} to="https://donate.stripe.com/test_6oE3ghcIw6zS1k4bII">
+              Donate
+            </Nav.Link>
             <div className="ml-lg-auto">
               {isLoggedIn ? (
                 <NavDropdown

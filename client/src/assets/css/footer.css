@@ -1,16 +1,14 @@
 .footer {
-    background-color: #183a1d;
-    color: white;
-  }
+  padding: 3rem;
+  background-color: #183a1d;
+  text-align: center;
+  font-size: 18px;
+}
 
-  .footer p {
-    text-align: center;
-    font-size: 14px;
-  }
-
-  .footer {
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
+.footertext {
+  color: #f0a04b;
+  font-family: 'Luckiest Guy', cursive;
+  text-align: left;
+}
 
   
