@@ -48,7 +48,16 @@ const resolvers = {
         // Saving reviewId in Post
         await Post.findOneAndUpdate(
           { _id: postId },
-          { $addToSet: { reviews: newReview._id, rating: newReview.rate } },
+          // Inserts new reviews at the beginning of the array
+          {
+            $push: {
+              reviews: {
+                $each: [newReview._id],
+                $position: 0
+              }
+            },
+            $addToSet: { rating: newReview.rate }
+          },
           { new: true }
         );
         return newReview;

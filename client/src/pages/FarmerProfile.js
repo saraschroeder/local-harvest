@@ -7,12 +7,7 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_POSTS, GET_USER_BY_ID, GET_ME } from "../utils/queries";
-import {
-  CREATE_REVIEW,
-  UPDATE_REVIEW,
-  DELETE_REVIEW,
-} from "../utils/mutations";
-import { DELETE_POST } from "../utils/mutations";
+import {CREATE_REVIEW, DELETE_REVIEW, DELETE_POST } from "../utils/mutations";
 import Auth from "../utils/auth";
 
 function Profile() {
@@ -27,7 +22,7 @@ function Profile() {
   });
 
   const [commentFormVisible, setCommentFormVisible] = useState({});
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState("");
   const [reviewText, setReviewText] = useState("");
   const [activePostId, setActivePostId] = useState("");
 
@@ -44,7 +39,12 @@ function Profile() {
     if (!token) {
       return false;
     }
-
+    if(rating === "") {
+      alert("Don't forget to rate your review!");
+    }
+    if(reviewText === "") {
+      alert("Review cannot be blank");
+    }
     try {
       const reviewInput = {
         userId: activeUserId,
@@ -61,7 +61,7 @@ function Profile() {
       });
       console.log(data);
       setReviewText("");
-      setRating(0);
+      setRating("");
       setCommentFormVisible({});
     } catch (error) {
       console.error(error);
@@ -155,7 +155,7 @@ function Profile() {
       <div className="description">{userData.userById.description}</div>
       <h3 className="posts-heading">Posts</h3>
       <div className="posts-container">
-        {postsByFarmer.map((post, index) => (
+        {postsByFarmer.reverse().map((post, index) => (
           <motion.div
             className="post-card"
             key={post._id}
@@ -200,7 +200,7 @@ function Profile() {
               <div className="comment-form">
                 <div className="rating">
                   {" "}
-                  Rate:
+                  Rate 
                   {Array.from({ length: 5 }, (_, index) => (
                     <FaStar
                       key={index}
