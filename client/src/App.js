@@ -12,13 +12,11 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Donation from './pages/Donation';
 import Profile from "./components/FarmerProfile";
 import { setContext } from "@apollo/client/link/context";
 
 
 import "./App.css";
-import WrappedDonation from './pages/Donation';
 import CreatePost from './pages/CreatePost';
 import ViewMyPosts from './pages/ViewMyPosts';
 
@@ -54,7 +52,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/about" element={<About />} />
-          <Route path="/donation" element={<WrappedDonation />} />
           <Route path="/create-post" element={<CreatePost />} />
           <Route path="/view-my-posts" element={<ViewMyPosts />} />
         </Routes>
