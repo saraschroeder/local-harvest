@@ -132,14 +132,3 @@ export const LOGIN = gql`
     }
   }
 `;
-
-export const CREATE_PAYMENT_INTENT = gql`
-  mutation CreatePaymentIntent($amount: Int!) {
-    createPaymentIntent(amount: $amount) {
-      amount
-      id
-      currency
-      client_secret
-    }
-  }
-`;

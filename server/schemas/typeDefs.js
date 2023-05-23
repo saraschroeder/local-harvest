@@ -81,13 +81,6 @@ const typeDefs = gql`
     user: User
   }
 
-  type PaymentIntent {
-  id: ID!
-  client_secret: String!
-  amount: Int!
-  currency: String!
-}
-
   type Query {
     users: [User]
     userById(userId: ID!): User
