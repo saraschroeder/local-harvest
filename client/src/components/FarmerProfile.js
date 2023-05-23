@@ -175,6 +175,7 @@ function Profile() {
             <p className="post-description">{post.formattedPrice}</p>
             <button
               className="add-comment-button"
+              style={{ display: Auth.isLoggedIn() ? 'block' : 'none' }}
               onClick={() => {
                 setActivePostId(post._id);
                 setCommentFormVisible((prevState) => ({
