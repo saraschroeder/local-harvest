@@ -2,7 +2,7 @@ const { User, Review, Post } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 const stripe = require("stripe")(
-  "sk_test_51N9BOWDpKmnLMg2OJUManAkWYJVsMJ8GPXH6NC6Iv3gGDoX49EnHLnTNy9pIyPNAQAHYROjB6OunybqaE5uVDNKO0019EaAf3A"
+  "pk_test_51N9BOWDpKmnLMg2OWpAFdAHlnlmw6qPuGrrN0WKV83U8pdHDrMbboqYtCtq0qB1qnynQeg4lQORkjSqU0gdW28yO000qqOdb7j"
 );
 
 const resolvers = {
