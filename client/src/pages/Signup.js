@@ -178,7 +178,7 @@ const Signup = () => {
                 {showAvatarSelection && (
                   <div className="avatar-selection-box">
                     <div className="avatar-images">
-                      {Array.from({ length: 12 }, (_, index) => {
+                      {Array.from({ length: 15 }, (_, index) => {
                         const avatarNumber = index + 1;
                         const avatarPath = require(`../assets/images/avatars/av${avatarNumber}.png`);
                         return (
