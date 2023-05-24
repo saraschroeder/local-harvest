@@ -104,7 +104,7 @@ function Profile() {
   };
 
   const getImagePath = (image) => {
-    return require(`../assets/images/${image}.jpg`);
+    return require(`../assets/images/categories/${image}.jpg`);
   };
 
   if (postsLoading || userLoading || meLoading) {

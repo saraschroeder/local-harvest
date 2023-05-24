@@ -8,6 +8,7 @@ import Auth from "../utils/auth";
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(Auth.isLoggedIn());
+  const stripe = process.env.REACT_APP_STRIPE_URL
 
   const handleLogout = () => {
     Auth.logout();
@@ -37,7 +38,7 @@ function Header() {
               About Us
             </Nav.Link>
             <Nav.Link
-              href="https://donate.stripe.com/test_6oE3ghcIw6zS1k4bII"
+              href={stripe}
               target="_blank"
             >
               Donate
