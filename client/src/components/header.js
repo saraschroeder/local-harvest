@@ -5,12 +5,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/css/header.css";
 import logo from "../assets/images/logo.png";
 import Auth from "../utils/auth";
-import dotenv from 'dotenv';
-dotenv.config();
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(Auth.isLoggedIn());
-  const stripe = process.env.REACT_APP_STRIPE
+  const stripe = process.env.REACT_APP_STRIPE_URL
 
   const handleLogout = () => {
     Auth.logout();
@@ -40,7 +38,7 @@ function Header() {
               About Us
             </Nav.Link>
             <Nav.Link
-              href={`https://donate.stripe.com/test_${stripe}`}
+              href={stripe}
               target="_blank"
             >
               Donate
