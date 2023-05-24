@@ -138,6 +138,16 @@
   transform: scale(1.2);
 }
 
+.home-avatar {
+  width: 100px;
+  height: 100px;
+  background-color: #ccc;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  right: 4px;
+}
+
 
 @media screen and (max-width: 600px) {
   .search-container {
@@ -150,14 +160,10 @@
     margin-right: 0;
     width: 100%;
   }
+
+  .home-avatar {
+    width: 60px;
+    height: 60px;
+  }
 }
 
-.home-avatar {
-  width: 100px;
-  height: 100px;
-  background-color: #ccc;
-  border-radius: 50%;
-  position: absolute;
-  top: 2px;
-  right: 4px;
-}
