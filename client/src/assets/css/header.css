@@ -99,3 +99,9 @@
   background-color: #ccc;
   border-radius: 50%;
 }
+
+@media screen and (max-width: 991px) {
+  #header-avatar {
+    margin-right: 20px;
+  }
+}
