@@ -47,12 +47,6 @@ function Login() {
           <div className="card login-card">
             <div className="card-body">
               <h2 className="text-center mb-4">Login</h2>
-              {data ? (
-                <p>
-                  Success! You may now head{" "}
-                  <Link to="/">back to the homepage.</Link>
-                </p>
-              ) : (
                 <form onSubmit={handleFormSubmit}>
                   <div className="form-group">
                     <label>Email</label>
@@ -84,7 +78,6 @@ function Login() {
                     Login
                   </button>
                 </form>
-              )}
               {error && (
                 <div className="text-danger mt-3">{error.message}</div>
               )}

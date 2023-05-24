@@ -220,13 +220,13 @@ function Profile() {
                   className="comment-input"
                   value={reviewText}
                   onChange={(e) => setReviewText(e.target.value)}
-                  placeholder="Enter your comment..."
+                  placeholder="Enter your review..."
                 ></textarea>
                 <button
                   className="submit-comment-button"
                   onClick={handleCreateReview}
                 >
-                  Submit Comment
+                  Submit Review
                 </button>
               </div>
             )}
@@ -263,7 +263,7 @@ function Profile() {
                           <Dropdown.Item
                             onClick={() => handleDeleteReview(review._id)}
                           >
-                            Delete Comment
+                            Delete Review
                           </Dropdown.Item>
                         )}
                       </Dropdown.Menu>

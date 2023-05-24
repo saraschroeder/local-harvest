@@ -34,6 +34,7 @@ const Signup = () => {
   // Using mutation to create new user
   const [createUser] = useMutation(CREATE_USER);
 
+  // Set array values to user input when text area is no longer selected
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState({
@@ -42,14 +43,14 @@ const Signup = () => {
     });
   };
 
+  // Function to create new user when Submit button is clicked
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
 
     if (selectedAvatar === "") {
-      return alert("Please select an avatar.")
+      return alert("Please select an avatar.");
     }
-
+    // Verify if role is Consumer and clears inputs exclusive to Farmer
     try {
       if (userRole === "Consumer") {
         const { data } = await createUser({
@@ -62,28 +63,37 @@ const Signup = () => {
           },
         });
 
+        // Create JWT token for Consumer
         Auth.login(data.createUser.token);
+        // If role is Farmer, all input can be passed with their value to createUser mutation
       } else if (userRole === "Farmer") {
         const { data } = await createUser({
           variables: { input: { ...formState, image: selectedAvatar } },
         });
-
+        // Create JWT token for Farmer
         Auth.login(data.createUser.token);
+        // Clears form
+        setFormState({
+          email: "",
+          userName: "",
+          password: "",
+          role: "",
+          businessName: "",
+          city: "",
+          state: "",
+          description: "",
+        });
       }
     } catch (e) {
       console.error(e);
+      // If returns error of duplicate email, show alert
+      if (e.message.includes("duplicate key error")) {
+        alert("This email is already in use");
+        // Show alert of any other errors that may occur
+      } else {
+        alert("An error has occurred. Please try again.");
+      }
     }
-
-    setFormState({
-      email: "",
-      userName: "",
-      password: "",
-      role: "",
-      businessName: "",
-      city: "",
-      state: "",
-      description: "",
-    });
   };
 
   const toggleAvatarSelection = () => {
@@ -118,7 +128,9 @@ const Signup = () => {
                     onChange={handleChange}
                     className="form-control"
                     required
+                    // Email validation
                     pattern="^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$"
+                    // Shows alert if validation fails
                     onInvalid={(e) =>
                       e.target.setCustomValidity(
                         "Please use this format: 'email@example.com'"
@@ -181,7 +193,7 @@ const Signup = () => {
                     </div>
                   </div>
                 )}
-
+                {/* The below is shown if user selects Farmer as a role */}
                 {userRole === "Farmer" && (
                   <div>
                     <div className="form-group">
@@ -204,7 +216,9 @@ const Signup = () => {
                         onChange={handleChange}
                         className="form-control"
                         required
+                        // City validation
                         pattern="^[A-Za-z\s]+"
+                        // Shows alert if validation fails
                         onInvalid={(e) =>
                           e.target.setCustomValidity(
                             "Please enter a valid city name"
@@ -243,6 +257,7 @@ const Signup = () => {
                     </div>
                   </div>
                 )}
+                {/* If role selected is consumer, closes the above */}
                 {userRole === "Consumer" && <></>}
                 <button type="submit" className="btn btn-custom mt-4 w-100">
                   Signup
