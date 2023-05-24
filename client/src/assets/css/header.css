@@ -92,3 +92,10 @@
 .dropdown-menu.show {
   margin-top: 0.5rem;
 }
+
+#header-avatar {
+  width: 35px;
+  height: 35px;
+  background-color: #ccc;
+  border-radius: 50%;
+}

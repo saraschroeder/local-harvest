@@ -46,7 +46,12 @@ function Header() {
               {isLoggedIn ? (
                 <React.Fragment>
                   <NavDropdown
-                    title={`${userProfile.userName}`}
+                    title={<img
+                    src={userProfile.image}
+                    alt="Avatar"
+                    id="header-avatar"
+                    className="logo"
+                  />}
                     id="basic-nav-dropdown"
                     className="header-dropdown"
                   >
@@ -56,12 +61,12 @@ function Header() {
                       </NavDropdown.Item>
                     )}
                     {userProfile.role === "Farmer" && (
-                    <NavDropdown.Item
-                      as={Link}
-                      to={`/profile/${userProfile._id}`}
-                    >
-                      Profile
-                    </NavDropdown.Item>
+                      <NavDropdown.Item
+                        as={Link}
+                        to={`/profile/${userProfile._id}`}
+                      >
+                        Profile
+                      </NavDropdown.Item>
                     )}
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={handleLogout}>
