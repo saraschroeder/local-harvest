@@ -2,42 +2,30 @@ body {
   background-color: #fef9f8;
 }
 
-/* 
-.App {
-  text-align: center;
+body,
+html {
+  height: 100%;
+  margin: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Envolves entire page */
+.app-router {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  /* Sets minimum height to 100% of the viewport height */
+  min-height: 100vh;
 }
 
-.App-link {
-  color: #61dafb;
+/* Envolves all page content (all pages) */
+.app-content {
+  min-height: 100vh; /* Needs this so all pages will have same height */
+  position: relative;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
+/* Envolves all content of pages except header and footer */
+.app-container {
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 4rem; /* Same as footer height */
+}

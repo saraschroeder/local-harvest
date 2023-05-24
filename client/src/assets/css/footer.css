@@ -1,15 +1,9 @@
-body, html {
-  height: 100%;
-  margin: 0;
-}
-
-.app-content {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
 .footer {
+  /* Sets footer to bottom of page */
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 4rem; 
   padding: 15px;
   background-color: #183a1d;
   opacity: 0.9;
@@ -24,5 +18,4 @@ body, html {
   color: #f0a04b;
   font-family: 'Luckiest Guy', cursive;
   margin-top: 5px;
-  text-align: left;
 }

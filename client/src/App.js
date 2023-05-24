@@ -42,9 +42,11 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <div className="app-content">
+      <div className="app-router">
         <Router>
+          <div className="app-content">
           <Header />
+          <div className="app-container">
           <Routes>
             <Route path="/profile/:farmerId" element={<Profile />} />
             <Route path="/login" element={<Login />} />
@@ -53,7 +55,9 @@ function App() {
             <Route path="/create-post" element={<CreatePost />} />
             <Route path="*" element={<Home />} />
           </Routes>
+          </div>
           <Footer />
+          </div>
         </Router>
       </div>
     </ApolloProvider>
