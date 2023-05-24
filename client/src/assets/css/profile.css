@@ -2,11 +2,18 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+    min-height: 400px; 
+  
 }
 
 .profile-header {
   display: flex;
   align-items: center;
+}
+
+.comment-text {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .profile-avatar {
@@ -186,3 +193,4 @@
   padding: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
