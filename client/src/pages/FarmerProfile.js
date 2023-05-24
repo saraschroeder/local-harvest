@@ -144,7 +144,11 @@ function Profile() {
   return (
     <div className="profile-container">
       <div className="profile-header">
-        <img className="profile-avatar" src={userData.userById.image} alt="avatar"></img>
+        <img
+          className="profile-avatar"
+          src={userData.userById.image}
+          alt="avatar"
+        ></img>
         <div className="profile-info">
           <h2 className="name">{userData.userById.businessName}</h2>
           <p className="location">
@@ -194,13 +198,13 @@ function Profile() {
                 }));
               }}
             >
-              Add Comment
+              {commentFormVisible[post._id] ? "Cancel" : "Add Review"}
             </button>
             {commentFormVisible[post._id] && (
               <div className="comment-form">
                 <div className="rating">
                   {" "}
-                  Rate 
+                  Rate
                   {Array.from({ length: 5 }, (_, index) => (
                     <FaStar
                       key={index}
@@ -227,7 +231,7 @@ function Profile() {
               </div>
             )}
             <div className="comments-section">
-              <h5>Comments</h5>
+              <h5>{post.reviews.length ? "Reviews" : "No Reviews"}</h5>
               {post.reviews.map((review) => (
                 <div className="comment-card" key={review._id}>
                   <div className="comment-rating">
