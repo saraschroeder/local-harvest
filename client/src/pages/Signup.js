@@ -46,6 +46,10 @@ const Signup = () => {
     event.preventDefault();
     console.log(formState);
 
+    if (selectedAvatar === "") {
+      return alert("Please select an avatar.")
+    }
+
     try {
       if (userRole === "Consumer") {
         const { data } = await createUser({
@@ -161,12 +165,10 @@ const Signup = () => {
                 </div>
                 {showAvatarSelection && (
                   <div className="avatar-selection-box">
-                    <h5>Select an Avatar:</h5>
                     <div className="avatar-images">
                       {Array.from({ length: 12 }, (_, index) => {
                         const avatarNumber = index + 1;
                         const avatarPath = require(`../assets/images/avatars/av${avatarNumber}.png`);
-
                         return (
                           <img
                             key={avatarNumber}

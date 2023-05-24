@@ -103,6 +103,7 @@ function Main() {
             transition={{ duration: 0.5, delay: index * 0.2 }}
           >
             <h2 className="name">{farmer.businessName}</h2>
+            <img src={farmer.image} alt="avatar" className="home-avatar" ></img>
             <p className="location">
               {farmer.city}, {farmer.state}
             </p>
