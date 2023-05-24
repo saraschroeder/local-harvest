@@ -1,3 +1,14 @@
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.app-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .footer {
   padding: 15px;
   background-color: #183a1d;
@@ -5,20 +16,13 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   text-align: center;
   font-size: 18px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  margin-top: 130px;
+  flex-shrink: 0; /* This prevents the footer from shrinking if there's a lot of content */
 }
 
 .footertext {
   color: #f0a04b;
   font-family: 'Luckiest Guy', cursive;
+  margin-top: 5px;
   text-align: left;
 }
-
-body {
-  padding-bottom: 50px;
-  margin: 0;
-}
-  
