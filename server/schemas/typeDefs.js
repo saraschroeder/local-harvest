@@ -1,7 +1,3 @@
-// const { AuthenticationError } = require("apollo-server-express");
-// const { User, Review, Post } = require("../models");
-// const { signToken } = require("../utils/auth");
-
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`

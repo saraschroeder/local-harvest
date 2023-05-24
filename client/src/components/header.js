@@ -36,6 +36,7 @@ function Header() {
             <Nav.Link as={Link} to="/about">
               About Us
             </Nav.Link>
+            {/* link to stripe donation page */}
             <Nav.Link
               href="https://donate.stripe.com/test_6oE3ghcIw6zS1k4bII"
               target="_blank"
@@ -46,6 +47,7 @@ function Header() {
               {isLoggedIn ? (
                 <React.Fragment>
                   <NavDropdown
+                  // renders profile avatar as clickable dropdown
                     title={<img
                     src={userProfile.image}
                     alt="Avatar"

@@ -144,6 +144,7 @@ function Profile() {
   return (
     <div className="profile-container">
       <div className="profile-header">
+        {/* shows profile avatar, stored as path in userData */}
         <img
           className="profile-avatar"
           src={userData.userById.image}

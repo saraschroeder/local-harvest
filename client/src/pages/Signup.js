@@ -46,6 +46,7 @@ const Signup = () => {
     event.preventDefault();
     console.log(formState);
 
+    // does not allow user to proceed unless avatar is selected
     if (selectedAvatar === "") {
       return alert("Please select an avatar.")
     }
@@ -154,6 +155,7 @@ const Signup = () => {
                     <option value="Farmer">Farmer</option>
                   </select>
                 </div>
+                {/* Avatar selection button and array */}
                 <div className="form-group mt-3">
                   <button
                     type="button"
@@ -166,10 +168,11 @@ const Signup = () => {
                 {showAvatarSelection && (
                   <div className="avatar-selection-box">
                     <div className="avatar-images">
+                      {/* Loops through avatar images, displays them all */}
                       {Array.from({ length: 15 }, (_, index) => {
                         const avatarNumber = index + 1;
                         const avatarPath = require(`../assets/images/avatars/av${avatarNumber}.png`);
-                        return (
+                        return ( // each avatar is assigned a path updated by its number, when selected path is added to user
                           <img
                             key={avatarNumber}
                             src={avatarPath}
