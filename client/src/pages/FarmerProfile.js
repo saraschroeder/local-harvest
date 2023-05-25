@@ -59,7 +59,6 @@ function Profile() {
           input: reviewInput,
         },
       });
-      console.log(data);
       setReviewText("");
       setRating("");
       setCommentFormVisible({});
@@ -79,7 +78,6 @@ function Profile() {
           reviewId: reviewId,
         },
       });
-      console.log(data);
     } catch (error) {
       console.error(error);
     }

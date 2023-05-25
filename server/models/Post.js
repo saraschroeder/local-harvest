@@ -22,12 +22,14 @@ const postSchema = new Schema(
       type: String,
       required: true,
     },
+    // Array with reviews IDs from reviewSchema
     reviews: [
       {
         type: Schema.Types.ObjectId,
         ref: "Review",
       },
     ],
+    // Comes from postSchema.virtual below
     rating: [{
       type: Number
     }]

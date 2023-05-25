@@ -87,6 +87,7 @@ const resolvers = {
       }
       throw new AuthenticationError("Something went wrong!");
     },
+    // Muttation to create new post
     createPost: async (parent, { postInput }, context) => {
       if (!context.user) {
         throw new AuthenticationError("You need to be logged in to add posts");
@@ -97,6 +98,7 @@ const resolvers = {
         );
       }
       const userId = context.user._id;
+      // Use spread operator because userId is being added from context, not passed via front-end
       const newPost = await Post.create({
         ...postInput,
         userId,
@@ -106,6 +108,7 @@ const resolvers = {
       }
       return newPost;
     },
+    // Mutation to update post
     updatePost: async (parent, { postId, post }) => {
       const updatedPost = await Post.findOneAndUpdate(
         { _id: postId },
@@ -117,6 +120,7 @@ const resolvers = {
       }
       return updatedPost;
     },
+    // Mutation to delete post
     deletePost: async (parent, { postId }, context) => {
       const postToDelete =  await Post.findOneAndDelete(
         { _id: postId },
@@ -125,11 +129,13 @@ const resolvers = {
         await Review.deleteMany({ postId }, { new: true })
         return postToDelete
     },
+    // Mutation to allow user login
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) {
         throw new AuthenticationError("User not found");
       }
+      // Using bcrypt (in User Model) to verify password
       const correctPassword = await user.verifyPassword(password);
       if (!correctPassword) {
         throw new AuthenticationError("Wrong password!");
