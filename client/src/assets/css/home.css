@@ -58,7 +58,8 @@
   transition: transform .2s;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; 
+  justify-content: space-between;
+  position: relative;
 }
 
 .farmer-card:hover {
