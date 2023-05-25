@@ -65,7 +65,6 @@ function CreatePost() {
       const { data } = await createPost({
         variables: { postInput: { ...formState, image: productCategory} },
       });
-      console.log(data);
       // Redirect to the created post page
       navigate(`/profile/${userData._id}`);
     } catch (e) {
