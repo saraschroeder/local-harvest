@@ -5,6 +5,7 @@
 [Installation](#installation)<br>
 [Usage](#usage)<br>
 [Technologies Used](#technologies-used)<br>
+[Contributors](#contributors)<br>
 [Credits](#credits)<br>
 [License](#license)<br>
 [Link to deployed application](#link-to-deployed-application)<br>
@@ -27,7 +28,7 @@ This project is the final project from Full Stack Coding Bootcamp at the Univers
 
 ## Usage
 
-1. Open [deployed application]()
+1. Open [deployed application](https://local-harvest.herokuapp.com/#/)
 1. On the main page:
     * You will be presented with a short descriptions of the farmers on our platform.
         * Search by State and/or City to find the farm closest to you.
@@ -39,7 +40,8 @@ This project is the final project from Full Stack Coding Bootcamp at the Univers
 1. If you are logged in as a Farmer:
     * You can add new posts by selecting `Add New Post` from your username's dropdown on the top-right corner of the page.
     * You can view or delete your posts by selecting `Profile` from your username's dropdown on the top-right corner of the page or by selecting your profile from the Homepage.
-1. Select `Donate` on the top-right corner of the page to make a donation to the Farmer's United Association.
+1. Select `Donate` on the top-right corner of the page to make a donation to the Farmer's United Association
+    * You will be redirected to `checkout.stripe.com`
 1. Select `About Us` to learn a little bit more about our mission.
 1. You can always go back to the Homepage by selecting `Explore` on the top-right corner of the page or our logo on the top-left corner of the page.
 
@@ -58,14 +60,20 @@ Typescript
 <br><br>
 [Back to top](#local-harvest-)
 
-## Credits
+## Contributors
 
-University of Minnesota - Full Stack Coding Bootcamp<br>
 [Sara Schroeder](https://github.com/saraschroeder)<br>
 [Maggie McQuown](https://github.com/mcquo011)<br>
 [Bia Jorgensen](https://github.com/lkalliance)<br>
 [Ross Boughman](https://github.com/Ross-Boughman)<br>
 [Brandon Wing](https://github.com/rudyxwhite)
+<br><br>
+[Back to top](#local-harvest-)
+
+## Credits
+
+University of Minnesota - Full Stack Coding Bootcamp<br>
+[Unsplash](https://unsplash.com/)
 <br><br>
 [Back to top](#local-harvest-)
 
@@ -78,14 +86,15 @@ To learn more about this license, please access https://opensource.org/licenses/
 
 ## Link to deployed application
 
-
+https://local-harvest.herokuapp.com/#/
 <br><br>
 [Back to top](#local-harvest-)
 
 ## Website preview
 
-<kbd>![local-harvest-](./assets/images)</kbd><br>
-<kbd>![local-harvest-](./assets/images)</kbd><br>
+<kbd>![local-harvest-homepage](./assets/screenshots/homepage.JPG)</kbd><br>
+<kbd>![local-harvest-posts](./assets/screenshots/posts.JPG)</kbd><br>
+<kbd>![local-harvest-signup](./assets/screenshots/signup.JPG)</kbd><br>
 <br><br>
 [Back to top](#local-harvest-)
 
