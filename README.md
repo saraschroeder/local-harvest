@@ -40,7 +40,8 @@ This project is the final project from Full Stack Coding Bootcamp at the Univers
 1. If you are logged in as a Farmer:
     * You can add new posts by selecting `Add New Post` from your username's dropdown on the top-right corner of the page.
     * You can view or delete your posts by selecting `Profile` from your username's dropdown on the top-right corner of the page or by selecting your profile from the Homepage.
-1. Select `Donate` on the top-right corner of the page to make a donation to the Farmer's United Association.
+1. Select `Donate` on the top-right corner of the page to make a donation to the Farmer's United Association
+    * You will be redirected to `checkout.stripe.com`
 1. Select `About Us` to learn a little bit more about our mission.
 1. You can always go back to the Homepage by selecting `Explore` on the top-right corner of the page or our logo on the top-left corner of the page.
 
